@@ -1,0 +1,22 @@
+1    0 00003EAB ClearReportsBetween_ExportThunk
+          2    1 00003E54 CrashForException_ExportThunk
+          3    2 00002292 DisableHook
+          4    3 000029BF DrainLog
+          5    4 00003EB0 DumpHungProcessWithPtype_ExportThunk
+          6    5 00001135 DumpProcessWithoutCrash
+          7    6 0000229A GetApplyHookResult
+          8    7 000031BE GetBlockedModulesCount
+          9    8 00003D98 GetCrashReports_ExportThunk
+         10    9 00003EA6 GetCrashpadDatabasePath_ExportThunk
+         11    A 00043AD0 GetHandleVerifier
+         12    B 00003CAC GetInstallDetailsPayload
+         13    C 000031C5 GetUniqueBlockedModulesCount
+         14    D 0000100A GetUserDataDirectoryThunk
+         15    E 00003E76 InjectDumpForHungInput_ExportThunk
+         16    F 00003673 IsThirdPartyInitialized
+         17   10 00003119 RegisterLogNotification
+         18   11 00003CC0 RequestSingleCrashUpload_ExportThunk
+         19   12 0000113A SetMetricsClientId
+         20   13 00003E71 SetUploadConsent_ExportThunk
+         21   14 00001005 SignalChromeElf
+         22   15 00001000 SignalInitializeCrashReporting

@@ -1,0 +1,15 @@
+LIBRARY
+EXPORTS
+api_object_init @1
+api_object_uninit @2
+
+hook_GetProductName @3
+hook_GetProductNameAndVersionForReducedUserAgent @4
+hook_GetVersionNumber @5
+hook_GetMajorVersionNumberAsInt @6
+hook_GetLastChange @7
+hook_IsOfficialBuild @8
+hook_GetOSType @9
+hook_GetSanitizerList @10
+hook_GetVersionDataReleaseId @11
+hook_GetVersionDataUbr @12

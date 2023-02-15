@@ -1,0 +1,17 @@
+1    0 00001EE0 GetFileVersionInfoA
+2    1 000023E0 GetFileVersionInfoByHandle
+3    2 00001F00 GetFileVersionInfoExA
+4    3 00001070 GetFileVersionInfoExW
+5    4 00001010 GetFileVersionInfoSizeA
+6    5 00001F20 GetFileVersionInfoSizeExA
+7    6 00001090 GetFileVersionInfoSizeExW
+8    7 000010B0 GetFileVersionInfoSizeW
+9    8 000010D0 GetFileVersionInfoW
+10    9 00001F40 VerFindFileA
+11    A 000025A0 VerFindFileW
+12    B 00001F60 VerInstallFileA
+13    C 00003390 VerInstallFileW
+14    D          VerLanguageNameA (forwarded to KERNEL32.VerLanguageNameA)
+15    E          VerLanguageNameW (forwarded to KERNEL32.VerLanguageNameW)
+16    F 00001030 VerQueryValueA
+17   10 00001050 VerQueryValueW
