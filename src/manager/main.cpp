@@ -1,30 +1,30 @@
 ﻿#include "stdafx.h"
-#if 0
-int main(int argc, char** argv) {
+using namespace local;
+
+int WINAPI wWinMain(_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPWSTR lpCmdLine,
+	_In_ int nShowCmd) {
 #if defined(_DEBUG)
- ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
- //::_CrtSetBreakAlloc(3709);
+	::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//::_CrtSetBreakAlloc(145);
 #endif
-
- local::__gspGlobal = new local::Global();
- if (!local::Global::Ready()) {
-  return -1;  
- }
-
-
- shared::Win::MainProcess(
-  [&](const std::string& input, bool& exit) {
-   if (input == "q") {
-    exit = true;
-   }
-   else if (input == "test") {
-
-   }
-  });
-
- SK_DELETE_PTR(local::__gspGlobal);
- return 0;
+ Manager* ui = nullptr;
+	auto del = ::CoInitialize(nullptr);
+	do {
+  CPaintManagerUI::SetInstance(hInstance);
+#if _DEBUG
+  CPaintManagerUI::SetResourcePath(LR"(D:\github\Windows\projects\browser_plugins\src\manager\res\skin)");
+#else
+  std::string skin_path = shared::Win::GetModulePathA() + "skin";
+  CPaintManagerUI::SetResourcePath(shared::IConv::MBytesToWString(skin_path).c_str());
+#endif
+  ui = new Manager();
+  ui->Start();
+  CPaintManagerUI::MessageLoop();
+		ui->Stop();
+	} while (0);
+	::CoUninitialize();
+	return 0;
 }
-#endif
-
 

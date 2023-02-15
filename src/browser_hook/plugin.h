@@ -18,18 +18,6 @@ namespace local {
   void Init();
   void UnInit();
  protected:
-  virtual void On_version_info_GetProductNameAndVersionForUserAgent(_Inout_ std::string&);
-  virtual void On_version_info_GetProductNameAndVersionForReducedUserAgent(_Inout_ std::string&);
-  virtual void On_version_info_GetProductName(_Inout_ std::string&);
-  virtual void On_version_info_GetVersionNumber(_Inout_ std::string&);
-  virtual void On_version_info_GetMajorVersionNumberAsInt(_Inout_ int&);
-  virtual void On_version_info_GetMajorVersionNumber(_Inout_ std::string&);
-  virtual void On_version_info_GetLastChange(_Inout_ std::string&);
-  virtual void On_version_info_IsOfficialBuild(_Inout_ bool&);
-  virtual void On_version_info_GetOSType(_Inout_ std::string&);
-  virtual void On_version_info_GetChannelString(_Inout_ std::string&);
-  virtual void On_version_info_GetSanitizerList(_Inout_ std::string&);
- protected:
   EnBrowserProcessType m_ProcessType = EnBrowserProcessType::EN_PROCESS_TYPE_UNKNOWN;
   Config* m_pConfig = nullptr;
   std::atomic_bool m_IsOpen = false;
@@ -41,6 +29,7 @@ namespace local {
  };
 
 }///namespace local
+
 
 /// /*_ Memade®（新生™） _**/
 /// /*_ Mon, 13 Feb 2023 01:48:42 GMT _**/

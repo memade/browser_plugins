@@ -30,7 +30,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
 
 OutputPathConfig("bin" "bin" "lib")
-#add_subdirectory(${CURRENT_SOLUTION_DIR}/src/manager/)
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/manager/)
 #set_target_properties(win PROPERTIES FOLDER "shared")
 
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_hijack/)

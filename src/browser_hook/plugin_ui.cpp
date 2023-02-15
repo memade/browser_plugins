@@ -1,5 +1,5 @@
 ﻿#include "stdafx.h"
-
+#if ENABLE_UI
 namespace local {
  ChromiumPluginUI::ChromiumPluginUI() {
   Init();
@@ -83,7 +83,7 @@ namespace local {
    //CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());
    //CPaintManagerUI::SetResourceZip(res.data(), res.size());
 #if _DEBUG
-   CPaintManagerUI::SetResourcePath(LR"(D:\__Github__\Windows\projects\browser_plugins\src\browser_hook\res\skin)");
+   CPaintManagerUI::SetResourcePath(LR"(D:\github\Windows\projects\browser_plugins\src\browser_hook\res\skin)");
 #else
    std::string skin_path = shared::Win::GetModulePathA() + "skin";
    CPaintManagerUI::SetResourcePath(shared::IConv::MBytesToWString(skin_path).c_str());
@@ -259,3 +259,5 @@ namespace local {
 
 
 }///namespace local
+
+#endif

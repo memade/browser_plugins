@@ -2,10 +2,8 @@
 #define __145A8BCB_2191_43B9_9146_B48A7F53F1FB__
 
 #include <win.h>
-#include <wxskin.h>
-
-#include "app.h"
-#include "frame.h"
+#include <duilib.hpp>
+#include <encryption.hpp>
 #include "manager.h"
 #include "global.h"
 

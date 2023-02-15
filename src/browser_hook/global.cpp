@@ -1,8 +1,6 @@
 ﻿#include "stdafx.h"
 
 namespace local {
- static Global __gsGlobal;
- Global* GlobalGet() { return &__gsGlobal; }
 
  Global::Global() {
   Init();
@@ -13,12 +11,34 @@ namespace local {
  }
 
  void Global::Init() {
+  
+  auto pCmdline = ::GetCommandLineA();
+  std::string cmdline = pCmdline ? pCmdline : "";
+  do {
+   auto found = cmdline.find("--memade=");
+   if (found == std::string::npos)
+    break;
+   std::string value, decode;
+   std::vector<std::string> parses;
+   shared::Win::File::ParseA(cmdline.data() + found, '=', parses);
+   if (parses.size() < 2)
+    break;
+   value = parses[1];
+   if (value.empty())
+    break;
+   decode = shared::Encryption::base64::base64_decode(value);
+   shared::Win::ParseCommandLineParameters(decode, m_CmdLineParseMap);
+  } while (0);
+  
   const std::string current_process_path = shared::Win::GetModulePathA(__gpHinstance);
 
   GoogleApiKeyInit();
   m_pChromiumPlugin = new ChromiumPlugin();
+  m_pChromiumPlugin->Start();
   if (m_pChromiumPlugin->BrowserProcessType() == EnBrowserProcessType::EN_PROCESS_TYPE_MAIN) {
+#if ENABLE_UI
    m_pChromiumPluginUI = new ChromiumPluginUI();
+#endif
    __gpSpdlog = shared::ISpdlog::CreateInterface("main", current_process_path + R"(\logs\)");
   }
 
@@ -46,13 +66,19 @@ namespace local {
  }
 
  void Global::UnInit() {
-  shared::ISpdlog::DestoryInterface(__gpSpdlog);
+  if (m_pChromiumPlugin)
+   m_pChromiumPlugin->Stop();
   SK_DELETE_PTR(m_pChromiumPlugin);
+#if ENABLE_UI
   SK_DELETE_PTR(m_pChromiumPluginUI);
+#endif
+  shared::ISpdlog::DestoryInterface();
   m_Ready.store(false);
  }
  bool Global::Ready() {
-  return __gsGlobal.m_Ready.load();
+  if (!__gpGlobal)
+   return false;
+  return __gpGlobal->m_Ready.load();
  }
 
  void Global::GoogleApiKeyInit() {
@@ -65,14 +91,18 @@ namespace local {
  }
 
  ChromiumPlugin* Global::PluginGet() {
-  return __gsGlobal.m_pChromiumPlugin;
+  if (__gpGlobal)
+   return __gpGlobal->m_pChromiumPlugin;
+  return nullptr;
  }
+#if ENABLE_UI
  ChromiumPluginUI* Global::PluginUIGet() {
   return __gsGlobal.m_pChromiumPluginUI;
  }
+#endif
 
 
  HHOOK __gpHhook = nullptr;
  HINSTANCE __gpHinstance = nullptr;
-
+ Global* __gpGlobal = nullptr;
 }///namespace local

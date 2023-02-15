@@ -1,6 +1,7 @@
 ﻿#if !defined(__977065DC_42FB_448F_A8D9_AF31F24AFE54__)
 #define __977065DC_42FB_448F_A8D9_AF31F24AFE54__
 
+#if ENABLE_UI
 namespace local {
 
  class ChromiumPluginUI : public shared::ui::UIFrame {
@@ -42,7 +43,7 @@ namespace local {
  };
 
 }///namespace local
-
+#endif
 /// /*_ Memade®（新生™） _**/
 /// /*_ Tue, 14 Feb 2023 04:02:51 GMT _**/
 /// /*_____ https://www.skstu.com/ _____ **/

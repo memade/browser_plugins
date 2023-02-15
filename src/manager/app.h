@@ -13,8 +13,6 @@ namespace local {
  private:
   wxFrame* m_pFrame = nullptr;
  };
-
-
 }
 
 /// /*_ Memade®（新生™） _**/

@@ -8,12 +8,10 @@ ${SOURCES_DIR}global.cpp
 ${SOURCES_DIR}stdafx.h
 ${SOURCES_DIR}stdafx.cpp
 ${SOURCES_DIR}main.cpp
-${SOURCES_DIR}app.cpp
-${SOURCES_DIR}app.h
-${SOURCES_DIR}frame.cpp
-${SOURCES_DIR}frame.h
 ${SOURCES_DIR}manager.cpp
 ${SOURCES_DIR}manager.h
+${SOURCES_DIR}manager.rc
+${SOURCES_DIR}resource.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

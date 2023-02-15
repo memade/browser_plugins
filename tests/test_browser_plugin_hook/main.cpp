@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
  tf_chromium_plugin_api_object_init api_object_init = nullptr;
  tf_chromium_plugin_api_object_uninit api_object_uninit = nullptr;
  do {
-  hModule = ::LoadLibraryA(R"(D:\__Github__\Windows\projects\browser_plugins\bin\x64\Debug\browser_hook.dll)");
+  hModule = ::LoadLibraryA(R"(D:\github\Windows\projects\browser_plugins\bin\x64\Debug\browser_hook.dll)");
   if (!hModule)
    break;
   api_object_init = (tf_chromium_plugin_api_object_init)::GetProcAddress(hModule, "api_object_init");

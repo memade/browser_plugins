@@ -11,17 +11,23 @@ namespace local {
   static bool Ready();
   static void GoogleApiKeyInit();
   static ChromiumPlugin* PluginGet();
+#if ENABLE_UI
   static ChromiumPluginUI* PluginUIGet();
+#endif
  private:
   void Init();
   void UnInit();
  private:
   std::atomic_bool m_Ready = false;
   ChromiumPlugin* m_pChromiumPlugin = nullptr;
+#if ENABLE_UI
   ChromiumPluginUI* m_pChromiumPluginUI = nullptr;
+#endif
+ public:
+  tfCommandLineNode m_CmdLineParseMap;
  };
 
- extern Global* GlobalGet();
+ extern Global* __gpGlobal;
  extern HHOOK __gpHhook;
  extern HINSTANCE __gpHinstance;
 }///namespace local

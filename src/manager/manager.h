@@ -3,14 +3,58 @@
 
 namespace local {
 
- class Manager final {
+ class UIBrowserConfigNode final : public CListContainerElementUI {
+ public:
+  UIBrowserConfigNode();
+  virtual ~UIBrowserConfigNode();
+ public:
+  void SetTitle(const std::string&);
+  std::string GetTitle();
+  void SetUrl(const std::string&);
+  std::string GetUrl();
+  void SetBrowserVersion(const std::string&);
+  std::string GetBrowserVersion();
+  void SetOSVersion(const std::string&);
+  std::string GetOSVersion();
+  void SetUserDataPath(const std::string&);
+  std::string GetUserDataPath();
+ };
+ class UIBrowserConfigList final : public CListUI {
+ public:
+  UIBrowserConfigList();
+  virtual ~UIBrowserConfigList();
+ public:
+  UIBrowserConfigNode* AppendBrowserConfig();
+  bool RemoveBrowserConfig(UIBrowserConfigNode*);
+ private:
+
+ };
+
+ class Manager final : shared::ui::UIFrame {
  public:
   Manager();
   virtual ~Manager();
+ public:
+  bool Start();
+  void Stop();
  private:
-
+  CTreeViewUI* m_pUITreeViewMain = nullptr;
+  CTabLayoutUI* m_pUITablayoutMain = nullptr;
+  UIBrowserConfigList* m_pUIListBrowserConfig = nullptr;
+  std::atomic_bool m_IsOpen = false;
  protected:
-
+  void InitWindow() override final;
+  void Notify(TNotifyUI& msg) override final;
+  void OnFinalMessage(HWND hWnd) override final;
+  CControlUI* CreateControl(LPCTSTR pstrClassName) override final;
+  LPCTSTR GetWindowClassName() const override final { return _TEXT("main"); }
+  LRESULT OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT OnKeyDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT OnGetMinMaxInfo(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
+  LRESULT OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override final;
  };
 
 
