@@ -55,7 +55,7 @@ namespace local {
 		_In_ LPSTARTUPINFOW lpStartupInfo,
 		_Out_ LPPROCESS_INFORMATION lpProcessInformation
 		)->BOOL {
-			//LOGINFO("{} run on process({}),", "CreateProcessW", ::GetCurrentProcessId());
+			LOGINFO("{} run on process({}),", "CreateProcessW", ::GetCurrentProcessId());
 			return Global::PluginGet()->CreateProcessWLocal(
 				lpApplicationName,
 				lpCommandLine,
@@ -82,7 +82,7 @@ namespace local {
 		_In_ LPSTARTUPINFOW lpStartupInfo,
 		_Out_ LPPROCESS_INFORMATION lpProcessInformation
 		)->BOOL {
-				//LOGINFO("{} run on process({}),", "CreateProcessAsUserW", ::GetCurrentProcessId());
+				LOGINFO("{} run on process({}),", "CreateProcessAsUserW", ::GetCurrentProcessId());
 #if 0
 				std::string cmd_string;
 				do {
@@ -110,6 +110,10 @@ namespace local {
 	static auto defGetNativeSystemInfo = [](
 		_Out_ LPSYSTEM_INFO lpSystemInfo)->VOID {
 			Global::PluginGet()->GetNativeSystemInfoLocal(lpSystemInfo);
+#if 0
+			if (lpSystemInfo->dwNumberOfProcessors > 2)
+				lpSystemInfo->dwNumberOfProcessors -= 2;
+#endif
 	};
 
 	static auto defGetSystemInfo = [](
@@ -142,6 +146,32 @@ namespace local {
 			return Global::PluginGet()->GetVersionExALocal(lpVersionInformation);
 	};
 
+	static auto defEnumFontFamiliesExW = [](
+		_In_ HDC hdc, _In_ LPLOGFONTW lpLogfont, _In_ FONTENUMPROCW lpProc, _In_ LPARAM lParam, _In_ DWORD dwFlags)->int {
+			LOGINFO("Hook Api({}).", "EnumFontFamiliesExW");
+			return Global::PluginGet()->EnumFontFamiliesExWLocal(
+				hdc,
+				lpLogfont,
+				lpProc,
+				lParam,
+				dwFlags
+			);
+	};
+
+	static auto defGetFontData = [](_In_ HDC hdc,
+		_In_ DWORD   dwTable,
+		_In_ DWORD   dwOffset,
+		_Out_writes_bytes_to_opt_(cjBuffer, return) PVOID pvBuffer,
+		_In_ DWORD   cjBuffer)->DWORD {
+			LOGINFO("Hook Api({}).", "GetFontData");
+			return Global::PluginGet()->GetFontDataLocal(
+				hdc,
+				dwTable,
+				dwOffset,
+				pvBuffer,
+				cjBuffer
+			);
+	};
 	bool ChromiumPlugin::Start() {
 		do {
 			if (m_IsOpen.load())
@@ -176,6 +206,10 @@ namespace local {
 			m_DetoursDetourAttachMap.emplace(&(PVOID&)GetNativeSystemInfoLocal, GetNativeSystemInfoRemote);
 			GetProductInfoRemote = defGetProductInfo;
 			m_DetoursDetourAttachMap.emplace(&(PVOID&)GetProductInfoLocal, GetProductInfoRemote);
+			GetFontDataRemote = defGetFontData;
+			m_DetoursDetourAttachMap.emplace(&(PVOID&)GetFontDataLocal, GetFontDataRemote);
+			EnumFontFamiliesExWRemote = defEnumFontFamiliesExW;
+			m_DetoursDetourAttachMap.emplace(&(PVOID&)EnumFontFamiliesExWLocal, EnumFontFamiliesExWRemote);
 			DetoursDetourAttach();
 			m_IsOpen.store(true);
 		} while (0);

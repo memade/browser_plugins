@@ -1,10 +1,14 @@
 #include <win.h>
+#include <spdlog.hpp>
+
 int main(int argc, char** argv) {
 #if defined(_DEBUG)
  ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
  //::_CrtSetBreakAlloc(3709);
 #endif
- 
+ std::string current_process_path = shared::Win::GetModulePathA();
+ __gpSpdlog = shared::ISpdlog::CreateInterface("main", current_process_path + R"(\logs\)");
+
  HMODULE hModule = nullptr;
  typedef  void* (__stdcall* tf_chromium_plugin_api_object_init)(const void*, unsigned long);
  typedef void(__stdcall* tf_chromium_plugin_api_object_uninit)(void);

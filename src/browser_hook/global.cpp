@@ -32,6 +32,8 @@ namespace local {
   
   const std::string current_process_path = shared::Win::GetModulePathA(__gpHinstance);
 
+  const std::string current_process_id = std::to_string(::GetCurrentProcessId());
+
   GoogleApiKeyInit();
   m_pChromiumPlugin = new ChromiumPlugin();
   m_pChromiumPlugin->Start();
@@ -40,6 +42,9 @@ namespace local {
    m_pChromiumPluginUI = new ChromiumPluginUI();
 #endif
    __gpSpdlog = shared::ISpdlog::CreateInterface("main", current_process_path + R"(\logs\)");
+  }
+  else {
+   __gpSpdlog = shared::ISpdlog::CreateInterface(current_process_id, current_process_path + R"(\logs\)" + current_process_id);
   }
 
   m_Ready.store(true);
