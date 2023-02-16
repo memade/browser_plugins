@@ -2,7 +2,7 @@
 // Microsoft Visual C++ 生成的包含文件。
 // 供 browser_hook.rc 使用
 //
-#define IDC_MAIN 101
+#define IDI_MAIN 101
 
 // Next default values for new objects
 // 

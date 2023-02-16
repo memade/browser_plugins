@@ -4,6 +4,10 @@
 #include <win.h>
 #include <duilib.hpp>
 #include <encryption.hpp>
+
+#include "resource.h"
+#include "local.h"
+#include "ui_components.h"
 #include "manager.h"
 #include "global.h"
 

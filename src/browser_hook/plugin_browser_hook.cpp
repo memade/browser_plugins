@@ -69,13 +69,14 @@ return result;
  }
 
  __shared_api_ bool __stdcall hook_GetLastChange(void** route, size_t& route_size, const void* view) {
-  return false;
+  //return false;
   /*4103ce089ac196ef7817d207ac19e54b8613a104-refs/heads/main@{#1102596}
   */
   const char* last_change = "1EC096E2-D918-410A-8BC9-21DC1C1710DE@{#1000000}";
   route_size = strlen(last_change);
   *route = HeapAlloc(GetProcessHeap(), 0, route_size);
   memcpy(*route, last_change, route_size);
+  return true;
  }
 
  __shared_api_ bool __stdcall hook_IsOfficialBuild(void** route, size_t& route_size, const void* view) {

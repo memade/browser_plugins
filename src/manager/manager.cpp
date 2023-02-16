@@ -7,7 +7,7 @@ namespace local {
 	}
 
 	Manager::~Manager() {
-
+		SK_DELETE_PTR(m_pUIComboUserAgent);
 	}
 	void Manager::OnFinalMessage(HWND hWnd) {
 		delete this;
@@ -32,10 +32,41 @@ namespace local {
 			m_IsOpen.store(false);
 		} while (0);
 	}
+	void Manager::CreateTray(PNOTIFYICONDATAW pNotifyIconData) {
+		pNotifyIconData->cbSize = sizeof(*pNotifyIconData);
+		pNotifyIconData->hWnd = m_hWnd;
+		pNotifyIconData->uID = IDI_MAIN;
+		pNotifyIconData->uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+		pNotifyIconData->uCallbackMessage = shared::ui::WM_NOTIFYICONDATA_MESSAGE;
+		pNotifyIconData->hIcon = ::LoadIconW(
+			CPaintManagerUI::GetInstance(), MAKEINTRESOURCE(IDI_MAIN));
+		::wcscpy_s(pNotifyIconData->szTip, MAIN_WINDOW_TITLE);
+		::Shell_NotifyIconW(NIM_ADD, pNotifyIconData);
+		//auto hMenu = CreatePopupMenu();//生成菜单
+		////为托盘菜单添加两个选项
+		//AppendMenu(hMenu, MF_STRING, ID_SHOW, TEXT("策略更新"));
+		//AppendMenu(hMenu, MF_STRING, ID_RECORD, TEXT("管控记录"));
+		//AppendMenu(hMenu, MF_STRING, ID_ABOUT, TEXT("关于"));
+	}
+	void Manager::DestoryTray(PNOTIFYICONDATAW pNotifyIconData) {
+		::Shell_NotifyIconW(NIM_DELETE, pNotifyIconData);
+	}
 	void Manager::InitWindow() {
+		m_pComboParent = GetCtrl<CLabelUI>(L"1214BBFE3F42");
+		if (m_pUIComboUserAgent) {
+			m_pUIComboUserAgent->SetManager(&m_pm, m_pComboParent);
+		}
+
+
+
+		m_pMainWindowTitleUI = GetCtrl<CLabelUI>(L"8365FB6BFF98");
 		m_pUITreeViewMain = GetCtrl<CTreeViewUI>(L"3E26C7C9ECF7");
 		m_pUITablayoutMain = GetCtrl<CTabLayoutUI>(L"B2DD4CE4C568");
-		m_pUIListBrowserConfig = GetCtrl<UIBrowserConfigList>(L"1FFE474A7213");
+		//m_pUIListBrowserConfig = GetCtrl<UIBrowserConfigList>(L"1FFE474A7213");
+
+		if (m_pMainWindowTitleUI)
+			m_pMainWindowTitleUI->SetText(MAIN_WINDOW_TITLE);
+
 		if (m_pUITablayoutMain && m_pUITablayoutMain->GetCount() >= 2)
 			m_pUITablayoutMain->SelectItem(1);
 
@@ -46,7 +77,8 @@ namespace local {
 		//!@ test config list
 		//! 
 		//! 
-		UIBrowserConfigNode* pNode = m_pUIListBrowserConfig->AppendBrowserConfig();
+		//UIBrowserConfigNode* pNode = m_pUIListBrowserConfig->AppendBrowserConfig();
+#if 0
 		pNode->SetUrl(R"(https://cn.bing.com/)");
 		pNode->SetTitle("ProxyNode[中国上海] Version[100.0.0.0]");
 		pNode->SetUserDataPath(R"(D:\BrowserCaches\Browser1)");
@@ -66,6 +98,7 @@ namespace local {
 		pNode->SetUserDataPath(R"(D:\BrowserCaches\Browser3)");
 		pNode->SetOSVersion("102");
 		pNode->SetBrowserVersion("102.0.0.0");
+#endif
 	}
 	LRESULT Manager::OnKeyDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 		bHandled = FALSE;
@@ -77,7 +110,7 @@ namespace local {
 		::SetWindowLong(*this, GWL_STYLE, styleValue | WS_CLIPSIBLINGS | WS_CLIPCHILDREN);
 		m_pm.Init(GetHWND());
 		CDialogBuilder builder;
-		CControlUI* pRoot = builder.Create(std::wstring(GetWindowClassName()).append(_TEXT(".xml")).c_str(), (LPCTSTR)0, NULL, &m_pm);
+		CControlUI* pRoot = builder.Create(std::wstring(GetWindowClassName()).append(_TEXT(".xml")).c_str(), (LPCTSTR)0, this, &m_pm);
 		ASSERT(pRoot && "Failed to parse 'ui.xml'");
 		m_pm.AttachDialog(pRoot);
 		m_pm.AddNotifier(this);
@@ -94,6 +127,61 @@ namespace local {
 		return 0;
 	}
 	LRESULT Manager::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+		switch (uMsg) {
+		case shared::ui::WM_NOTIFYICONDATA_MESSAGE: {
+
+			UINT uID;//发出该消息的图标的ID
+			UINT uMouseMsg;//鼠标动作
+			POINT pt;
+			uID = (UINT)wParam;
+			uMouseMsg = (UINT)lParam;
+			if (uMouseMsg == WM_LBUTTONDOWN)//如果是单击左键
+			{
+				switch (uID) {
+				case IDI_MAIN:
+					GetCursorPos(&pt);//取得鼠标位置
+					//判断当前窗口是否为隐藏，隐藏就让其显示
+					//if (AfxGetApp()->m_pMainWnd->IsIconic())
+					//{
+					//	AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+					//}
+					break;
+				}
+			}
+			if (uMouseMsg == WM_LBUTTONDOWN)//如果是单击右键
+			{
+				switch (uID)
+				{
+				case IDI_MAIN:
+
+					HMENU hMenu = CreatePopupMenu();//生成托盘菜单
+					//为托盘菜单添加两个选项
+					AppendMenuW(hMenu, MF_STRING, 0, TEXT("提示"));
+					AppendMenuW(hMenu, MF_STRING, 1, TEXT("退出"));
+#if 0	
+					TrackPopupMenu(hMenu, TPM_RIGHTBUTTON | TPM_LEFTALIGN, pt.x, pt.y);
+
+					HMENU menu = ::CreateMenu();  //定义右键菜单对象
+					GetCursorPos(&pt);   //获取当前鼠标位置
+					::LoadMenu(CPaintManagerUI::GetInstance(),)
+					menu.LoadMenu(IDR_TUOPAN_MENU);   //载入右键快捷菜单
+					SetForegroundWindow();//放置在前面
+					CMenu* pmenu;    //定义右键菜单指针
+					pmenu = menu.GetSubMenu(0);      //该函数取得被指定菜单激活的下拉式菜单或子菜单的句柄
+					ASSERT(pmenu != NULL);
+					pmenu->TrackPopupMenu(TPM_RIGHTBUTTON | TPM_LEFTALIGN, pt.x, pt.y, this);   //在指定位置显示右键快捷菜单
+					HMENU hmenu = pmenu->Detach();
+					pmenu->DestroyMenu();
+#endif
+				}
+			}
+	
+
+			auto sk = 0;
+		}break;
+		default:
+			break;
+		}
 		bHandled = FALSE;
 		return 0;
 	}
@@ -102,238 +190,29 @@ namespace local {
 		bHandled = TRUE;
 		return 0;
 	}
-
 	LRESULT Manager::OnChar(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 		bHandled = FALSE;
 		return 0;
 	}
 	CControlUI* Manager::CreateControl(LPCTSTR pstrClassName) {
+		if (_tcsicmp(pstrClassName, _T("UICombo")) == 0) {
+			do {
+				auto hComboBox = ::CreateWindowW(WC_COMBOBOX, TEXT(""),
+					CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED /*| WS_VISIBLE*/,
+					0, 0, 200, 200, m_pm.GetPaintWindow(), NULL, m_pm.GetInstance(),
+					NULL);
+				if (!hComboBox)
+					break;
+				m_pUIComboUserAgent = new UICombo();
+				m_pUIComboUserAgent->Attach(hComboBox);
+				//m_pm.AttachDialog(m_pUIComboUserAgent);
+				//auto parent = GetCtrl<CControlUI>(L"1214BBFE3F42");
+				//m_pUIComboUserAgent->SetManager(&m_pm, m_pComboParent);
+			} while (0);
+		}
+
 		return nullptr;
 	}
-
-	void Manager::Notify(TNotifyUI& msg) {
-		if (msg.sType == DUI_MSGTYPE_HEADERCLICK) {
-		}///DUI_MSGTYPE_HEADERCLICK
-		else if (msg.sType == DUI_MSGTYPE_LINK) {
-			CTextUI* pText = (CTextUI*)msg.pSender;
-			CDuiString* strUrl = pText->GetLinkContent(0);
-			::ShellExecute(NULL, _T("open"), strUrl->GetData(), NULL, NULL, SW_SHOWNORMAL);
-		}
-		else if (msg.sType == DUI_MSGTYPE_CHECKCLICK) {
-
-		}
-		else if (msg.sType == DUI_MSGTYPE_CLICK) {
-			const auto name = msg.pSender->GetName();
-			if (!name.Compare(_T("0B3A1B17"))) {
-				::ShowWindow(m_hWnd, SW_SHOWMINIMIZED);
-			}
-			else if (!name.Compare(_T("A3B405BB"))) {
-				__super::Close();
-			}
-			else if (!name.Compare(_T("B6AAAB2D9465"))) {
-
-				do {
-					bool found = false;
-					CControlUI* pos = msg.pSender;
-					do {
-						if (!pos)
-							break;
-						if (!pos->GetName().Compare(_T("C24C84325602"))) {
-							found = true;
-							break;
-						}
-						pos = pos->GetParent();
-					} while (1);
-
-					if (!found)
-						break;
-
-					auto pBrowserConfigNodeUI = (UIBrowserConfigNode*)pos;
-					auto url = pBrowserConfigNodeUI->GetUrl();
-					auto user_data_dir = pBrowserConfigNodeUI->GetUserDataPath();
-					auto os_version = pBrowserConfigNodeUI->GetOSVersion();
-					auto browser_version = pBrowserConfigNodeUI->GetBrowserVersion();
-
-					std::string starup_cmdline = \
-						std::format(R"(--user-data-dir={} --profile-directory=Default {} --memade={})", 
-							user_data_dir, 
-							url,
-							shared::Encryption::base64::base64_encode(std::format("--os_ubr={} --browser_ver={}", os_version, browser_version))
-						);
-					shared::Win::Process::CreateA(
-#if _DEBUG
-						R"(D:\github\ChromiumBrowserRelease\Browser\chrome.exe)",
-#else
-						shared::Win::GetModulePathA() + R"(\Browser\chrome.exe)",
-#endif
-						starup_cmdline, [](const HANDLE&, const DWORD&) {}
-					);
-
-
-
-				} while (0);
-
-
-			}
-
-
-		}
-		else if (msg.sType == DUI_MSGTYPE_ITEMSELECT) {
-			if (m_pUITreeViewMain == msg.pSender) {
-				if (m_pUITablayoutMain)
-					m_pUITablayoutMain->SelectItem(m_pUITreeViewMain->GetCurSel());
-			}
-
-
-		}
-		else {
-
-		}
-	}
-
-
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	UIBrowserConfigNode::UIBrowserConfigNode() {
-
-	}
-	UIBrowserConfigNode::~UIBrowserConfigNode() {
-
-	}
-	void UIBrowserConfigNode::SetTitle(const std::string& title) {
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("6C0B97862744"));
-			if (!edit)
-				break;
-			edit->SetText(shared::IConv::MBytesToWString(title).c_str());
-		} while (0);
-	}
-	std::string UIBrowserConfigNode::GetTitle() {
-		std::string result;
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("6C0B97862744"));
-			if (!edit)
-				break;
-			auto w = edit->GetText();
-			if (w.IsEmpty())
-				break;
-			result = shared::IConv::WStringToMBytes(w.GetData());
-		} while (0);
-		return result;
-	}
-
-	void UIBrowserConfigNode::SetUrl(const std::string& url) {
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("DA3F9E9298CE"));
-			if (!edit)
-				break;
-			edit->SetText(shared::IConv::MBytesToWString(url).c_str());
-		} while (0);
-	}
-	std::string UIBrowserConfigNode::GetUrl() {
-		std::string result;
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("DA3F9E9298CE"));
-			if (!edit)
-				break;
-			auto w = edit->GetText();
-			if (w.IsEmpty())
-				break;
-			result = shared::IConv::WStringToMBytes(w.GetData());
-		} while (0);
-		return result;
-	}
-
-	void UIBrowserConfigNode::SetUserDataPath(const std::string& path) {
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("F8B9E7C04300"));
-			if (!edit)
-				break;
-			edit->SetText(shared::IConv::MBytesToWString(path).c_str());
-		} while (0);
-	}
-	std::string UIBrowserConfigNode::GetUserDataPath() {
-		std::string result;
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("F8B9E7C04300"));
-			if (!edit)
-				break;
-			auto w = edit->GetText();
-			if (w.IsEmpty())
-				break;
-			result = shared::IConv::WStringToMBytes(w.GetData());
-		} while (0);
-		return result;
-	}
-
-	void UIBrowserConfigNode::SetOSVersion(const std::string& version) {
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("6A72B8AC487E"));
-			if (!edit)
-				break;
-			edit->SetText(shared::IConv::MBytesToWString(version).c_str());
-		} while (0);
-	}
-	std::string UIBrowserConfigNode::GetOSVersion() {
-		std::string result;
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("6A72B8AC487E"));
-			if (!edit)
-				break;
-			auto w = edit->GetText();
-			if (w.IsEmpty())
-				break;
-			result = shared::IConv::WStringToMBytes(w.GetData());
-		} while (0);
-		return result;
-	}
-
-	void UIBrowserConfigNode::SetBrowserVersion(const std::string& version) {
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("7829F0EE1CF1"));
-			if (!edit)
-				break;
-			edit->SetText(shared::IConv::MBytesToWString(version).c_str());
-		} while (0);
-	}
-	std::string UIBrowserConfigNode::GetBrowserVersion() {
-		std::string result;
-		do {
-			auto edit = GetSubCtrl<CEditUI>(_T("7829F0EE1CF1"));
-			if (!edit)
-				break;
-			auto w = edit->GetText();
-			if (w.IsEmpty())
-				break;
-			result = shared::IConv::WStringToMBytes(w.GetData());
-		} while (0);
-		return result;
-	}
-
-	UIBrowserConfigList::UIBrowserConfigList() {
-
-	}
-	UIBrowserConfigList::~UIBrowserConfigList() {
-
-	}
-	UIBrowserConfigNode* UIBrowserConfigList::AppendBrowserConfig() {
-		bool result = false;
-		CDialogBuilder builder;
-		auto node = builder.Create<UIBrowserConfigNode>(_T("browser_config_node.xml"));
-
-
-		Add(node);
-		return node;
-	}
-	bool UIBrowserConfigList::RemoveBrowserConfig(UIBrowserConfigNode*) {
-		bool result = false;
-
-
-
-		return result;
-	}
-
-
-
 
 
 }///namespace local

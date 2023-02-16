@@ -3,6 +3,7 @@ project(manager)
 set(SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/)
 
 set(SOURCES
+${SOURCES_DIR}local.h
 ${SOURCES_DIR}global.h
 ${SOURCES_DIR}global.cpp
 ${SOURCES_DIR}stdafx.h
@@ -12,6 +13,10 @@ ${SOURCES_DIR}manager.cpp
 ${SOURCES_DIR}manager.h
 ${SOURCES_DIR}manager.rc
 ${SOURCES_DIR}resource.h
+${SOURCES_DIR}ui_components.cpp
+${SOURCES_DIR}ui_components.h
+${SOURCES_DIR}ui_onmessage.cpp
+${SOURCES_DIR}ui_onnotify.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

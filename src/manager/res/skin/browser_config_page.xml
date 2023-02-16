@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<VerticalLayout name="7B6D0CA7904D">
+		<!--配置详情页[标题]-->
+		<HorizontalLayout height="20" bkcolor="#FF1E1E1E" bordercolor="#FF3C3C3C" bordersize="1">
+			<Label padding="5,0,0,0" height="20" name="6C0B97862744" text="配置详情页" textcolor="#FFC0C0C0" font="1101" align="left"/>			
+		</HorizontalLayout>
+		
+		<!--配置详情-->
+		<VerticalLayout>
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+					<Label padding="5,0,5,0" width="100" text="浏览器启动跳转URL" textcolor="#FFFFFFFF" font="1100" align="left"/>
+					<Edit name="DA3F9E9298CE" enabled="true" text="https://pixelscan.net/" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>				
+			</HorizontalLayout>
+				
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="用户数据目录" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<Edit name="F8B9E7C04300" enabled="false" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>								
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="浏览器内核版本号" textcolor="#FFFFFFFF" font="1100" align="left"/>	
+				<Edit name="7829F0EE1CF1" enabled="false" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>				
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="UserAgent" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<!---
+				<Edit name="A4DFA3A65599" enabled="false" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF3C3C3C" textbkcolor="#FF3C3C3C" bordersize="1" bordercolor="FF3C3C3C" nativebkcolor="#FF3C3C3C"/>				
+				--->
+				<!--
+				<Combo name="EFD6FA80A298" enabled="true" width="120" textcolor="#FFFFFFFF" textpadding="5,0,0,0" padding="0,0,0,0" vscrollbar="true" hscrollBar="true" itemfont="4" font="4" itemtextpadding="5,5,0,0" bkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" itemhotbkcolor="#FF3C3C3C" itemselectedbkcolor="#FF3C3C3C" itemhottextcolor="#FFFFFFFF" itemselectedtextcolor="#FFFFFFFF" itembkcolor="#FF323232" itemtextcolor="#FFFFFFFF">
+					<ListLabelElement text="[STP]直接交易员" userdata="1" selected="true"/>
+					<ListLabelElement text="[ECN]自动撮合成交" userdata="2"/>
+					<ListLabelElement text="[MTF]多边交易" userdata="4"/>
+					<ListLabelElement text="[MM]做市商" userdata="8"/>
+				</Combo>
+				-->
+				
+				<!--
+				<HorizontalLayout name="1214BBFE3F42">
+					<UICombo name="EFD6FA80A298" width="500"/>
+				</HorizontalLayout>
+				-->
+				
+				<Edit name="EFD6FA80A298" enabled="false" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>							
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="OS版本号(Ubr)" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<Edit name="6A72B8AC487E" enabled="false" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>													
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="代理帐户" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<Edit name="0C9DAC6E6D51" enabled="true" text="liyz888-zone-custom-region-us-session-86977717-sessTime-60" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>													
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="代理密码" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<Edit name="4E120C0F957B" enabled="true" text="c646674de314d7f2" password="true" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>													
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<Label padding="5,0,5,0" width="100" text="代理地址" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				<Edit name="5DFAF388FD1F" enabled="true" text="proxy.ipidea.io:2333" textpadding="3,0,3,0" textcolor="#FFFFFFFF" bkcolor="#FF323232" textbkcolor="#FF323232" bordersize="1" bordercolor="#FF778899" nativebkcolor="#FF323232"/>													
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<!--
+				<Label padding="5,0,5,0" width="100" text="代理开关" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				-->
+				<Option name="B288520F85B6" enabled="true" text="打开浏览器是否启用代理" width="168" textpadding="12,2,0,0" textcolor="#FFFF0000" font="1200" selectedimage="file='images/Check.png' source='0,52,13,65' dest='3,5,16,18'" selectedhotimage="file='images/Check.png' source='0,65,13,78' dest='3,5,16,18'" disabledimage="file='images/Check.png' source='0,39,13,52' dest='3,5,16,18'" pushedimage="file='images/Check.png' source='0,26,13,39' dest='3,5,16,18'" bkimage="file='images/Check.png' source='0,0,13,13' dest='3,5,16,18'" hotimage="file='images/Check.png' source='0,13,13,26' dest='3,5,16,18'" selected="true"/>											
+						
+			</HorizontalLayout>
+			
+			<HorizontalLayout padding="2,2,2,2" height="20" bkcolor="#FF3C3C3C" bordersize="1">
+				<!--
+				<Label padding="5,0,5,0" width="100" text="代理开关" textcolor="#FFFFFFFF" font="1100" align="left"/>
+				-->
+				<Option name="8253E31497F8" enabled="true" text="模拟微软 User-Agent" width="168" textpadding="12,2,0,0" textcolor="#FFFF0000" font="1200" selectedimage="file='images/Check.png' source='0,52,13,65' dest='3,5,16,18'" selectedhotimage="file='images/Check.png' source='0,65,13,78' dest='3,5,16,18'" disabledimage="file='images/Check.png' source='0,39,13,52' dest='3,5,16,18'" pushedimage="file='images/Check.png' source='0,26,13,39' dest='3,5,16,18'" bkimage="file='images/Check.png' source='0,0,13,13' dest='3,5,16,18'" hotimage="file='images/Check.png' source='0,13,13,26' dest='3,5,16,18'" selected="true"/>											
+						
+			</HorizontalLayout>
+		</VerticalLayout>
+			
+		<!--浏览器启动按钮-->
+		<HorizontalLayout height="30" bkcolor="#FF1E1E1E" bordercolor="#FF3C3C3C" bordersize="1">
+			<Control/>
+			<Button padding="0,5,0,0" height="20" name="7D0C8FBC3E87" width="100" enabled="false" text="保存修改" font="1201" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>	
+			<Control width="2"/>
+			<Button padding="0,5,0,0" height="20" name="386B30157DA4" width="100" text="启动浏览器" font="1201" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>	
+			<Control width="2"/>
+		</HorizontalLayout>
+		<Control height="2"/>
+	</VerticalLayout>
+</Window>
