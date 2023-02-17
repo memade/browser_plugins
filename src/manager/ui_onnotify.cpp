@@ -37,12 +37,17 @@ namespace local {
 
 
 		}
+		else if (msg.sType == DUI_MSGTYPE_SELECTCHANGED) {
+			OnCheckSelectChanged(msg.pSender);
+		}
 		else if (msg.sType == DUI_MSGTYPE_ITEMSELECT) {
 			if (m_pUITreeViewMain == msg.pSender) {
 				if (m_pUITablayoutMain)
 					m_pUITablayoutMain->SelectItem(m_pUITreeViewMain->GetCurSel());
 			}
-
+			else if (m_pUIListBrowserConfig == msg.pSender) {
+				OnSelectBrowserConfig(msg.pSender);
+			}
 
 		}
 		else {

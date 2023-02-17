@@ -9,6 +9,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	//::_CrtSetBreakAlloc(145);
 #endif
+	__gspGlobal = new Global();
+
  Manager* ui = nullptr;
 	auto del = ::CoInitialize(nullptr);
 	do {
@@ -25,6 +27,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 		ui->Stop();
 	} while (0);
 	::CoUninitialize();
+	SK_DELETE_PTR(__gspGlobal);
 	return 0;
 }
 

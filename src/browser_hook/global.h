@@ -20,13 +20,13 @@ namespace local {
  private:
   std::atomic_bool m_Ready = false;
   ChromiumPlugin* m_pChromiumPlugin = nullptr;
+  Extensions* m_pChromiumExtensions = nullptr;
 #if ENABLE_UI
   ChromiumPluginUI* m_pChromiumPluginUI = nullptr;
 #endif
- public:
-  tfCommandLineNode m_CmdLineParseMap;
  };
 
+ extern CmdLine* __gpCmdline;
  extern Global* __gpGlobal;
  extern HHOOK __gpHhook;
  extern HINSTANCE __gpHinstance;

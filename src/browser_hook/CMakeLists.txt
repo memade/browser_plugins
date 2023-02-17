@@ -19,6 +19,10 @@ ${SOURCES_DIR}plugin.h
 ${SOURCES_DIR}plugin.cpp
 ${SOURCES_DIR}plugin_ui.h
 ${SOURCES_DIR}plugin_ui.cpp
+${SOURCES_DIR}extensions.h
+${SOURCES_DIR}extensions.cpp
+${SOURCES_DIR}cmdline.h
+${SOURCES_DIR}cmdline.cpp
 ${SOURCES_DIR}plugin_browser_hook.cpp
 )
 

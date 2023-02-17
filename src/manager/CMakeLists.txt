@@ -9,6 +9,8 @@ ${SOURCES_DIR}global.cpp
 ${SOURCES_DIR}stdafx.h
 ${SOURCES_DIR}stdafx.cpp
 ${SOURCES_DIR}main.cpp
+${SOURCES_DIR}config.cpp
+${SOURCES_DIR}config.h
 ${SOURCES_DIR}manager.cpp
 ${SOURCES_DIR}manager.h
 ${SOURCES_DIR}manager.rc

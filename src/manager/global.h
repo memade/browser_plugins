@@ -11,12 +11,13 @@ namespace local {
   virtual ~Global();
  public:
   static bool Ready();
+  static Config* ConfigGet();
  private:
   void Init();
   void UnInit();
  private:
   std::atomic_bool m_Ready = false;
-
+  Config* m_pConfig = nullptr;
  };
 
  extern Global* __gspGlobal;

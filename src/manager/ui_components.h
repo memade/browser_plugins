@@ -41,9 +41,13 @@ namespace local {
  public:
   UIBrowserConfigPage();
   virtual ~UIBrowserConfigPage();
+  static UIBrowserConfigPage* Create();
+  void operator>>(std::string&);
  public:
   void SetTitle(const std::string&);
   std::string GetTitle();
+  void SetComment(const std::string&);
+  std::string GetComment();
   void SetJumpUrl(const std::string&);
   std::string GetJumpUrl();
   void SetBrowserVersion(const std::string&);
@@ -58,19 +62,32 @@ namespace local {
   std::string GetProxyAccount();
   void SetProxyPassword(const std::string&);
   std::string GetProxyPassword();
+  void SetProxyEnable(const bool&);
+  bool GetProxyEnable();
  };
-#if 0
+
+
+ class UIBrowserConfigListNode final : public CListContainerElementUI {
+ public:
+  UIBrowserConfigListNode();
+  virtual ~UIBrowserConfigListNode();
+  static UIBrowserConfigListNode* Create();
+ public:
+  void SetTitle(const std::string&);
+  std::string GetTitle();
+ };
+
  class UIBrowserConfigList final : public CListUI {
  public:
   UIBrowserConfigList();
   virtual ~UIBrowserConfigList();
  public:
-  UIBrowserConfigNode* AppendBrowserConfig();
-  bool RemoveBrowserConfig(UIBrowserConfigNode*);
+  //UIBrowserConfigNode* AppendBrowserConfig();
+  //bool RemoveBrowserConfig(UIBrowserConfigNode*);
  private:
 
  };
-#endif
+
 
 
 }///namespace local

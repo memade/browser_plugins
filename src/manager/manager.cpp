@@ -52,17 +52,17 @@ namespace local {
 		::Shell_NotifyIconW(NIM_DELETE, pNotifyIconData);
 	}
 	void Manager::InitWindow() {
-		m_pComboParent = GetCtrl<CLabelUI>(L"1214BBFE3F42");
-		if (m_pUIComboUserAgent) {
-			m_pUIComboUserAgent->SetManager(&m_pm, m_pComboParent);
-		}
-
-
+		//m_pComboParent = GetCtrl<CLabelUI>(L"1214BBFE3F42");
+		//if (m_pUIComboUserAgent) {
+		//	m_pUIComboUserAgent->SetManager(&m_pm, m_pComboParent);
+		//}
 
 		m_pMainWindowTitleUI = GetCtrl<CLabelUI>(L"8365FB6BFF98");
 		m_pUITreeViewMain = GetCtrl<CTreeViewUI>(L"3E26C7C9ECF7");
 		m_pUITablayoutMain = GetCtrl<CTabLayoutUI>(L"B2DD4CE4C568");
-		//m_pUIListBrowserConfig = GetCtrl<UIBrowserConfigList>(L"1FFE474A7213");
+		m_pUITablayoutPageBrowserConfig = GetCtrl<CTabLayoutUI>(L"51C0375A6FA8");
+		m_pUIListBrowserConfig = GetCtrl<UIBrowserConfigList>(L"1FFE474A7213");
+		m_pUIListBrowserConfig->SetMultiSelect(false);
 
 		if (m_pMainWindowTitleUI)
 			m_pMainWindowTitleUI->SetText(MAIN_WINDOW_TITLE);
@@ -73,6 +73,16 @@ namespace local {
 		if (m_pUITreeViewMain && m_pUITreeViewMain->GetCount() >= 2) {
 			m_pUITreeViewMain->SelectItem(0);
 		}
+
+#if _DEBUG
+		//for (int i = 0; i < 5; ++i) {
+		//	auto node = UIBrowserConfigListNode::Create();
+		//	node->SetTitle(std::format("测试配置({})", i));
+		//	m_pUIListBrowserConfig->Add(node);
+		//}
+
+
+#endif
 
 		//!@ test config list
 		//! 

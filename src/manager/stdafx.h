@@ -2,11 +2,14 @@
 #define __145A8BCB_2191_43B9_9146_B48A7F53F1FB__
 
 #include <win.h>
+#include <rapidjson.h>
+#include <rapidxml.h>
 #include <duilib.hpp>
 #include <encryption.hpp>
 
 #include "resource.h"
 #include "local.h"
+#include "config.h"
 #include "ui_components.h"
 #include "manager.h"
 #include "global.h"

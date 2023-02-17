@@ -20,6 +20,12 @@ __shared_api_ bool __stdcall hook_GetOSType(void**, size_t&, const void* view);
 __shared_api_ bool __stdcall hook_GetSanitizerList(void**, size_t&, const void* view);
 __shared_api_ bool __stdcall hook_GetVersionDataReleaseId(void**, size_t&, const void* view);
 __shared_api_ bool __stdcall hook_GetVersionDataUbr(void**, size_t&, const void* view);
+
+__shared_api_ bool __stdcall hook_SysInfoNumberOfEfficientProcessors(void**, size_t&, const void* view);
+__shared_api_ bool __stdcall hook_SysInfoAmountOfPhysicalMemory(void**, size_t&, const void* view);
+__shared_api_ bool __stdcall hook_SysInfoAmountOfAvailablePhysicalMemory(void**, size_t&, const void* view);
+__shared_api_ bool __stdcall hook_SysInfoProcessCPUArchitecture(void**, size_t&, const void* view);
+__shared_api_ bool __stdcall hook_SysInfoUptime(void**, size_t&, const void* view);
 /// /*_ Memade®（新生™） _**/
 /// /*_ Sun, 29 Jan 2023 14:25:35 GMT _**/
 /// /*_____ https://www.skstu.com/ _____ **/

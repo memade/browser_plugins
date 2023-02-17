@@ -15,13 +15,16 @@ namespace local {
 		void OnBtnAppendBrowserConfig(CControlUI*);
 		void OnBtnRemoveBrowserConfig(CControlUI*);
 		void OnBtnSaveBrowserConfig(CControlUI*);
+		void OnCheckSelectChanged(CControlUI*);
+		void OnSelectBrowserConfig(CControlUI*);
 	private:
 		UICombo* m_pUIComboUserAgent = nullptr;
 		CControlUI* m_pComboParent = nullptr;
 		CLabelUI* m_pMainWindowTitleUI = nullptr;
 		CTreeViewUI* m_pUITreeViewMain = nullptr;
 		CTabLayoutUI* m_pUITablayoutMain = nullptr;
-		//UIBrowserConfigList* m_pUIListBrowserConfig = nullptr;
+		CTabLayoutUI* m_pUITablayoutPageBrowserConfig = nullptr;
+		UIBrowserConfigList* m_pUIListBrowserConfig = nullptr;
 		std::atomic_bool m_IsOpen = false;
 	protected:
 		void CreateTray(PNOTIFYICONDATAW) override final;

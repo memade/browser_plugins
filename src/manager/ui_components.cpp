@@ -9,6 +9,68 @@ namespace local {
 	UIBrowserConfigPage::~UIBrowserConfigPage() {
 
 	}
+	UIBrowserConfigPage* UIBrowserConfigPage::Create() {
+		CDialogBuilder builder;
+		auto create = (UIBrowserConfigPage*)(builder.Create<UIBrowserConfigPage>(_T("browser_config_page.xml")));
+		create->SetTagUINT64(shared::Win::Time::TimeStamp<std::chrono::microseconds>());
+		return create;
+	}
+	void UIBrowserConfigPage::operator>>(std::string& output) {
+		output.clear();
+		rapidjson::Document doc(rapidjson::kObjectType);
+
+		doc.AddMember(
+			rapidjson::Value().SetString("identify",doc.GetAllocator()).Move(),
+			rapidjson::Value().SetUint64(GetTagUINT64()).Move(), 
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("comment", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetComment().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("jump_url", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetJumpUrl().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("user_data_dir", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetUserDataPath().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("os_version", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetOSVersion().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("browser_version", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetBrowserVersion().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("proxy_address", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetProxyAddress().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("proxy_account", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetProxyAccount().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("proxy_password", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetString(GetProxyPassword().c_str(), doc.GetAllocator()).Move(),
+			doc.GetAllocator());
+
+		doc.AddMember(
+			rapidjson::Value().SetString("proxy_enable", doc.GetAllocator()).Move(),
+			rapidjson::Value().SetBool(GetProxyEnable()).Move(),
+			doc.GetAllocator());
+
+		output = shared::Json::toString(doc);
+	}
 	void UIBrowserConfigPage::SetTitle(const std::string& title) {
 		do {
 			auto edit = GetSubCtrl<CEditUI>(_T("6C0B97862744"));
@@ -30,7 +92,27 @@ namespace local {
 		} while (0);
 		return result;
 	}
-
+	void UIBrowserConfigPage::SetComment(const std::string& title) {
+		do {
+			auto edit = GetSubCtrl<CEditUI>(_T("FAD0355F8CAB"));
+			if (!edit)
+				break;
+			edit->SetText(shared::IConv::MBytesToWString(title).c_str());
+		} while (0);
+	}
+	std::string UIBrowserConfigPage::GetComment() {
+		std::string result;
+		do {
+			auto edit = GetSubCtrl<CEditUI>(_T("FAD0355F8CAB"));
+			if (!edit)
+				break;
+			auto w = edit->GetText();
+			if (w.IsEmpty())
+				break;
+			result = shared::IConv::WStringToMBytes(w.GetData());
+		} while (0);
+		return result;
+	}
 	void UIBrowserConfigPage::SetJumpUrl(const std::string& url) {
 		do {
 			auto edit = GetSubCtrl<CEditUI>(_T("DA3F9E9298CE"));
@@ -182,31 +264,79 @@ namespace local {
 	} while (0);
 	return result;
 	}
-#if 0
+	void UIBrowserConfigPage::SetProxyEnable(const bool& enable) {
+		do {
+			auto check = GetSubCtrl<CCheckBoxUI>(_T("B288520F85B6"));
+			if (!check)
+				break;
+			check->Selected(enable);
+		} while (0);
+	}
+	bool UIBrowserConfigPage::GetProxyEnable() {
+		bool result = false;
+		do {
+			auto check = GetSubCtrl<CCheckBoxUI>(_T("B288520F85B6"));
+			if (!check)
+				break;
+			result = check->IsSelected();
+		} while (0);
+		return result;
+	}
+
+
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	UIBrowserConfigListNode::UIBrowserConfigListNode() {
+
+	}
+
+	UIBrowserConfigListNode::~UIBrowserConfigListNode() {
+
+	}
+	UIBrowserConfigListNode* UIBrowserConfigListNode::Create() {
+			CDialogBuilder builder;
+			return (UIBrowserConfigListNode*)(builder.Create<UIBrowserConfigPage>(_T("browser_config_list_action_node.xml")));
+	}
+	void UIBrowserConfigListNode::SetTitle(const std::string& title_text) {
+		auto ui = GetSubCtrl<CLabelUI>(L"9EFE15567B45");
+		if (ui)
+			ui->SetText(shared::IConv::MBytesToWString(title_text).c_str());
+	}
+	std::string UIBrowserConfigListNode::GetTitle() {
+		std::string result;
+		auto ui = GetSubCtrl<CLabelUI>(L"9EFE15567B45");
+		if (ui)
+			result = shared::IConv::WStringToMBytes(ui->GetText().GetData());
+		return result;
+	}
+
+
+
 	UIBrowserConfigList::UIBrowserConfigList() {
 
 	}
 	UIBrowserConfigList::~UIBrowserConfigList() {
 
 	}
-	UIBrowserConfigPage* UIBrowserConfigList::AppendBrowserConfig() {
-		bool result = false;
-		CDialogBuilder builder;
-		auto node = builder.Create<UIBrowserConfigPage>(_T("browser_config_list_action_node.xml"));
+	//UIBrowserConfigPage* UIBrowserConfigList::AppendBrowserConfig() {
+	//	bool result = false;
+	//	CDialogBuilder builder;
+	//	auto node = builder.Create<UIBrowserConfigPage>(_T("browser_config_list_action_node.xml"));
 
 
-		Add(node);
-		return node;
-	}
-	bool UIBrowserConfigList::RemoveBrowserConfig(UIBrowserConfigPage*) {
-		bool result = false;
+	//	Add(node);
+	//	return node;
+	//}
+	//bool UIBrowserConfigList::RemoveBrowserConfig(UIBrowserConfigPage*) {
+	//	bool result = false;
 
 
 
-		return result;
-	}
+	//	return result;
+	//}
 
-#endif
+
 
 
 

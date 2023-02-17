@@ -11,25 +11,7 @@ namespace local {
  }
 
  void Global::Init() {
-  
-  auto pCmdline = ::GetCommandLineA();
-  std::string cmdline = pCmdline ? pCmdline : "";
-  do {
-   auto found = cmdline.find("--memade=");
-   if (found == std::string::npos)
-    break;
-   std::string value, decode;
-   std::vector<std::string> parses;
-   shared::Win::File::ParseA(cmdline.data() + found, '=', parses);
-   if (parses.size() < 2)
-    break;
-   value = parses[1];
-   if (value.empty())
-    break;
-   decode = shared::Encryption::base64::base64_decode(value);
-   shared::Win::ParseCommandLineParameters(decode, m_CmdLineParseMap);
-  } while (0);
-  
+
   const std::string current_process_path = shared::Win::GetModulePathA(__gpHinstance);
 
   const std::string current_process_id = std::to_string(::GetCurrentProcessId());
@@ -46,6 +28,9 @@ namespace local {
   else {
    __gpSpdlog = shared::ISpdlog::CreateInterface(current_process_id, current_process_path + R"(\logs\)" + current_process_id);
   }
+
+  m_pChromiumExtensions = new Extensions();
+
 
   m_Ready.store(true);
   do {
@@ -71,6 +56,7 @@ namespace local {
  }
 
  void Global::UnInit() {
+  SK_DELETE_PTR(m_pChromiumExtensions);
   if (m_pChromiumPlugin)
    m_pChromiumPlugin->Stop();
   SK_DELETE_PTR(m_pChromiumPlugin);
@@ -106,7 +92,7 @@ namespace local {
  }
 #endif
 
-
+ CmdLine* __gpCmdline = nullptr;
  HHOOK __gpHhook = nullptr;
  HINSTANCE __gpHinstance = nullptr;
  Global* __gpGlobal = nullptr;

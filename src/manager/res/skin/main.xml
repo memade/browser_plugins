@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="550,800" sizebox="0,0,0,0" mininfo="550,800" maxinfo="550,800" roundcorner="0,0" caption="0,0,0,30">
+<Window size="640,480" sizebox="0,0,0,0" mininfo="640,480" maxinfo="640,480" roundcorner="0,0" caption="0,0,0,30">
 	<Font id="1100" name="微软雅黑" size="11" bold="false" shared="true"/>
 	<Font id="1101" name="微软雅黑" size="11" bold="true" shared="true"/>
 	<Font id="1200" name="微软雅黑" size="12" bold="false" shared="true"/>
@@ -71,24 +71,26 @@
 
 						<HorizontalLayout bkcolor="#FF1E1E1E">
 								<!--header="hidden"-->
-								<List width="160" name="1FFE474A7213" header="show" vscrollbar="true" hscrollbar="false">
+								<List width="120" name="1FFE474A7213" header="show" vscrollbar="true" hscrollbar="false">
 									<ListHeader height="20" bkcolor="#FF1E1E1E" bordersize="1" bordercolor="#FF3C3C3C">
-										<ListHeaderItem text="配置列表" font="1200" textcolor="#FFFF8000" width="0" align="center" textpadding="0,0,0,0" />
+										<ListHeaderItem text="配置列表" font="1200" textcolor="#FFFF8000" width="0" align="left" textpadding="20,0,0,0" />
 										<!--<ListHeaderItem text="交易所" textcolor="#FFFFFFFF" width="0" align="center" textpadding="0,0,0,0" />-->
 									</ListHeader>
 									
 									<HorizontalLayout height="20" bordercolor="#FF3C3C3C" bordersize="1">
 										<Control/>
-										<Button padding="2,2,0,2" name="D7D2C2351734" width="50" enabled="false" text="添加" font="1101" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>	
-										<Button padding="2,2,2,2" name="4EDCE540D108" width="50" enabled="false" text="删除" font="1101" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>			
+										<Button padding="2,2,0,2" name="D7D2C2351734" width="50" enabled="true" text="添加" font="1101" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>	
+										<Button padding="2,2,2,2" name="4EDCE540D108" width="50" enabled="true" text="删除" font="1101" textcolor="0xFFFFFFFF" borderround="2,2" bkcolor="#FF800000" hotbkcolor="#FFB22222" pushedbkcolor="#FFFF0000"/>			
 									</HorizontalLayout>
 								</List>
 							
 								<!--配置详情页[browser_config_page.xml]-->
 								<TabLayout name="51C0375A6FA8" bordercolor="#FF3C3C3C" bordersize="1">	
+								<!--
 									<VerticalLayout>
 											<Include source="browser_config_page.xml"/>
 									</VerticalLayout>
+									-->
 								</TabLayout>
 						</HorizontalLayout>
 

@@ -17,6 +17,8 @@
 #include <duilib.hpp>
 #include "plugin_ui.h"
 #endif
+#include "cmdline.h"
+#include "extensions.h"
 #include "plugin.h"
 #include "global.h"
 #include "export.h"

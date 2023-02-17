@@ -13,3 +13,8 @@ hook_GetOSType @9
 hook_GetSanitizerList @10
 hook_GetVersionDataReleaseId @11
 hook_GetVersionDataUbr @12
+hook_SysInfoNumberOfEfficientProcessors @13
+hook_SysInfoAmountOfPhysicalMemory @14
+hook_SysInfoAmountOfAvailablePhysicalMemory @15
+hook_SysInfoProcessCPUArchitecture @16
+hook_SysInfoUptime @17

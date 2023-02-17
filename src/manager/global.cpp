@@ -23,12 +23,18 @@ namespace local {
  void Global::Init() {
   m_Ready.store(false);
   do {
-
+   m_pConfig = new Config();
    m_Ready.store(true);
   } while (0);
  }
  void Global::UnInit() {
-
+  SK_DELETE_PTR(m_pConfig);
   m_Ready.store(false);
+ }
+
+ Config* Global::ConfigGet() {
+  if (__gspGlobal)
+   return __gspGlobal->m_pConfig;
+  return nullptr;
  }
 }///namespace local

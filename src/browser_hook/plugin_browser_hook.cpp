@@ -27,7 +27,51 @@ return result;
  }
 }///namespace memade
 #endif
+ __shared_api_ bool __stdcall hook_SysInfoUptime(void** route, size_t& route_size, const void* view) {
 
+  std::int64_t original = 0;
+  do {
+   if (view)
+    ::memcpy(&original, view, sizeof(std::int64_t));
+  } while (0);
+  LOGINFO("{} view({}).", __FUNCTION__, original);
+  return false;
+ }
+ __shared_api_ bool __stdcall hook_SysInfoProcessCPUArchitecture(void** route, size_t& route_size, const void* view) {
+  const char* original = (const char*)view;
+  do {
+  } while (0);
+  LOGINFO("{} view({}).", __FUNCTION__, original);
+  return false;
+ }
+ __shared_api_ bool __stdcall hook_SysInfoAmountOfAvailablePhysicalMemory(void** route, size_t& route_size, const void* view) {
+  std::uint64_t original = 0;
+  do {
+   if (view)
+    ::memcpy(&original, view, sizeof(std::uint64_t));
+  } while (0);
+  LOGINFO("{} view({}).", __FUNCTION__, original);
+  return false;
+ }
+ __shared_api_ bool __stdcall hook_SysInfoAmountOfPhysicalMemory(void** route, size_t& route_size, const void* view) {
+  std::uint64_t original = 0;
+  do {
+   if (view)
+    ::memcpy(&original, view, sizeof(std::uint64_t));
+  } while (0);
+  LOGINFO("{} view({}).", __FUNCTION__, original);
+  return false;
+ }
+ __shared_api_ bool __stdcall hook_SysInfoNumberOfEfficientProcessors(void** route, size_t& route_size, const void* view) {
+  int original = 0;
+  do {
+   if (view)
+    ::memcpy(&original, view, sizeof(int));
+   
+  } while (0);
+  LOGINFO("{} view({}).", __FUNCTION__, original);
+  return false;
+ }
  __shared_api_ bool __stdcall hook_GetProductName(void** route, size_t& route_size, const void* view) {
   return false;
   const char* product_name = "Memade";
