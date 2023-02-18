@@ -46,6 +46,8 @@ namespace local {
  public:
   void SetTitle(const std::string&);
   std::string GetTitle();
+  void SetName(const std::string&);
+  std::string GetName();
   void SetComment(const std::string&);
   std::string GetComment();
   void SetJumpUrl(const std::string&);

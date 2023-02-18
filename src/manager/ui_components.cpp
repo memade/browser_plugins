@@ -92,6 +92,27 @@ namespace local {
 		} while (0);
 		return result;
 	}
+	void UIBrowserConfigPage::SetName(const std::string& name) {
+		do {
+			auto edit = GetSubCtrl<CEditUI>(_T("630565C3702C"));
+			if (!edit)
+				break;
+			edit->SetText(shared::IConv::MBytesToWString(name).c_str());
+		} while (0);
+	}
+	std::string UIBrowserConfigPage::GetName() {
+		std::string result;
+		do {
+			auto edit = GetSubCtrl<CEditUI>(_T("630565C3702C"));
+			if (!edit)
+				break;
+			auto w = edit->GetText();
+			if (w.IsEmpty())
+				break;
+			result = shared::IConv::WStringToMBytes(w.GetData());
+		} while (0);
+		return result;
+	}
 	void UIBrowserConfigPage::SetComment(const std::string& title) {
 		do {
 			auto edit = GetSubCtrl<CEditUI>(_T("FAD0355F8CAB"));

@@ -138,56 +138,36 @@ namespace local {
 	}
 	LRESULT Manager::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 		switch (uMsg) {
+		case WM_COMMAND: {
+			switch (wParam) {
+			case shared::ui::WM_NOTIFYICONDATA_MENU_EXIT: {
+				::PostMessageW(GetHWND(), WM_CLOSE, 0, 0);
+				return TRUE;
+			}break;
+			default:
+				break;
+			}
+		}break;
 		case shared::ui::WM_NOTIFYICONDATA_MESSAGE: {
-
-			UINT uID;//发出该消息的图标的ID
-			UINT uMouseMsg;//鼠标动作
-			POINT pt;
-			uID = (UINT)wParam;
-			uMouseMsg = (UINT)lParam;
-			if (uMouseMsg == WM_LBUTTONDOWN)//如果是单击左键
-			{
-				switch (uID) {
-				case IDI_MAIN:
-					GetCursorPos(&pt);//取得鼠标位置
-					//判断当前窗口是否为隐藏，隐藏就让其显示
-					//if (AfxGetApp()->m_pMainWnd->IsIconic())
-					//{
-					//	AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
-					//}
+			switch (lParam) {
+			case WM_LBUTTONDBLCLK: {
+				if (wParam != IDI_MAIN)
 					break;
-				}
+				if (::IsWindowVisible(GetHWND()))
+					ShowWindow(false);
+				else
+					ShowWindow(true);
+			}break;
+			case WM_RBUTTONDOWN: {
+				if (wParam != IDI_MAIN)
+					break;
+				POINT pt = { 0 };
+				::GetCursorPos(&pt);
+				::TrackPopupMenu(m_hTrayPopMenu, TPM_RIGHTBUTTON, pt.x, pt.y, NULL, GetHWND(), NULL);
+			}break;
+			default:
+				break;
 			}
-			if (uMouseMsg == WM_LBUTTONDOWN)//如果是单击右键
-			{
-				switch (uID)
-				{
-				case IDI_MAIN:
-
-					HMENU hMenu = CreatePopupMenu();//生成托盘菜单
-					//为托盘菜单添加两个选项
-					AppendMenuW(hMenu, MF_STRING, 0, TEXT("提示"));
-					AppendMenuW(hMenu, MF_STRING, 1, TEXT("退出"));
-#if 0	
-					TrackPopupMenu(hMenu, TPM_RIGHTBUTTON | TPM_LEFTALIGN, pt.x, pt.y);
-
-					HMENU menu = ::CreateMenu();  //定义右键菜单对象
-					GetCursorPos(&pt);   //获取当前鼠标位置
-					::LoadMenu(CPaintManagerUI::GetInstance(),)
-					menu.LoadMenu(IDR_TUOPAN_MENU);   //载入右键快捷菜单
-					SetForegroundWindow();//放置在前面
-					CMenu* pmenu;    //定义右键菜单指针
-					pmenu = menu.GetSubMenu(0);      //该函数取得被指定菜单激活的下拉式菜单或子菜单的句柄
-					ASSERT(pmenu != NULL);
-					pmenu->TrackPopupMenu(TPM_RIGHTBUTTON | TPM_LEFTALIGN, pt.x, pt.y, this);   //在指定位置显示右键快捷菜单
-					HMENU hmenu = pmenu->Detach();
-					pmenu->DestroyMenu();
-#endif
-				}
-			}
-	
-
-			auto sk = 0;
 		}break;
 		default:
 			break;
@@ -205,23 +185,25 @@ namespace local {
 		return 0;
 	}
 	CControlUI* Manager::CreateControl(LPCTSTR pstrClassName) {
+		CControlUI* result = nullptr;
+#if 0
 		if (_tcsicmp(pstrClassName, _T("UICombo")) == 0) {
 			do {
 				auto hComboBox = ::CreateWindowW(WC_COMBOBOX, TEXT(""),
-					CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED /*| WS_VISIBLE*/,
+					CBS_DROPDOWN | CBS_HASSTRINGS | WS_CHILD | WS_OVERLAPPED | WS_VISIBLE,
 					0, 0, 200, 200, m_pm.GetPaintWindow(), NULL, m_pm.GetInstance(),
 					NULL);
 				if (!hComboBox)
 					break;
-				m_pUIComboUserAgent = new UICombo();
-				m_pUIComboUserAgent->Attach(hComboBox);
+				result = new UICombo();
+				((UICombo*)result)->Attach(hComboBox);
 				//m_pm.AttachDialog(m_pUIComboUserAgent);
 				//auto parent = GetCtrl<CControlUI>(L"1214BBFE3F42");
 				//m_pUIComboUserAgent->SetManager(&m_pm, m_pComboParent);
 			} while (0);
 		}
-
-		return nullptr;
+#endif
+		return result;
 	}
 
 

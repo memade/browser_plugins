@@ -124,14 +124,17 @@ R"(D:\github\ChromiumBrowserRelease\Browser\Extensions\AutoProxy)"
 		m_pUITablayoutPageBrowserConfig->SelectItem(((UIBrowserConfigList*)pSender)->GetCurSel());
 	}
  void Manager::OnBtnAppendBrowserConfig(CControlUI* pSender) {
+		const char CreateConfigName[] = "新建配置";
 		auto node = UIBrowserConfigListNode::Create();
-		node->SetTitle("新建配置");
+		node->SetTitle(CreateConfigName);
 		m_pUIListBrowserConfig->UnSelectAllItems();
 		auto add_index = m_pUIListBrowserConfig->GetCount();
 		m_pUIListBrowserConfig->AddAt(node, add_index);
 		m_pUIListBrowserConfig->SelectItem(add_index);
 
 		auto page = UIBrowserConfigPage::Create();
+		//page->SetManager(&m_pm, m_pUITablayoutPageBrowserConfig);
+		page->SetName(CreateConfigName);
 		m_pUITablayoutPageBrowserConfig->AddAt(page, add_index);
 
 

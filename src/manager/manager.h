@@ -3,7 +3,7 @@
 
 namespace local {
 
-	class Manager final : shared::ui::UIFrame {
+	class Manager final : public shared::ui::UIFrame {
 	public:
 		Manager();
 		virtual ~Manager();

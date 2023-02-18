@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="800,600" sizebox="0,0,0,0" mininfo="800,600" maxinfo="800,600" roundcorner="0,0" caption="0,0,0,30">
+<Window size="1024,768" sizebox="0,0,0,0" mininfo="1024,768" maxinfo="1024,768" roundcorner="0,0" caption="0,0,0,30">
 	<Font id="1100" name="微软雅黑" size="11" bold="false" shared="true"/>
 	<Font id="1101" name="微软雅黑" size="11" bold="true" shared="true"/>
 	<Font id="1200" name="微软雅黑" size="12" bold="false" shared="true"/>

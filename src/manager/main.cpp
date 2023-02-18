@@ -10,21 +10,18 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
 	//::_CrtSetBreakAlloc(145);
 #endif
 	__gspGlobal = new Global();
-
- Manager* ui = nullptr;
-	auto del = ::CoInitialize(nullptr);
+	HRESULT discard = ::CoInitialize(nullptr);
 	do {
   CPaintManagerUI::SetInstance(hInstance);
 #if _DEBUG
-  CPaintManagerUI::SetResourcePath(LR"(D:\github\Windows\projects\browser_plugins\src\manager\res\skin)");
+  CPaintManagerUI::SetResourcePath(LR"(..\..\..\src\manager\res\skin)");
 #else
   std::string skin_path = shared::Win::GetModulePathA() + "skin";
   CPaintManagerUI::SetResourcePath(shared::IConv::MBytesToWString(skin_path).c_str());
 #endif
-  ui = new Manager();
-  ui->Start();
+  Global::MainUI()->Start();
   CPaintManagerUI::MessageLoop();
-		ui->Stop();
+		Global::MainUI()->Stop();
 	} while (0);
 	::CoUninitialize();
 	SK_DELETE_PTR(__gspGlobal);

@@ -12,12 +12,14 @@ namespace local {
  public:
   static bool Ready();
   static Config* ConfigGet();
+  static Manager* MainUI();
  private:
   void Init();
   void UnInit();
  private:
   std::atomic_bool m_Ready = false;
   Config* m_pConfig = nullptr;
+  Manager* m_pManagerUI = nullptr;
  };
 
  extern Global* __gspGlobal;
