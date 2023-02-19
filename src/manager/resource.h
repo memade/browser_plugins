@@ -3,6 +3,7 @@
 // π© browser_hook.rc  π”√
 //
 #define IDI_MAIN 101
+#define IDR_SKIN 102
 
 // Next default values for new objects
 // 

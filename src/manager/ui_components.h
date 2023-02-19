@@ -3,6 +3,10 @@
 
 namespace local {
 
+
+
+
+#if 0
  class UICombo final : public CControlUI {
  public:
  public:
@@ -89,9 +93,7 @@ namespace local {
  private:
 
  };
-
-
-
+#endif
 }///namespace local
 
 /// /*_ Memade®（新生™） _**/

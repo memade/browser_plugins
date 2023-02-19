@@ -1,20 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Config>
-<Global 
-MainSwitch="true" 
->
+<?xml version="1.0" encoding="UTF-8"?>
+<Setup>
 
-</Global>
-
-<Hookup 
-GetNativeSystemInfo="true">
-	
-</Hookup>
-<!--
-<IDConfig>
-<![CDATA[
-{"ClientID":{"ID::Bits":32,"ID::Min":4294967295,"ID::Max":281474976710655},"ComponentID":{"ID::Bits":32,"ID::Min":4294967295,"ID::Max":281474976710655},"LoginID":{"ID::Bits":32,"ID::Min":4294967295,"ID::Max":281474976710655},"ModuleID":{"ID::Bits":0,"ID::Min":0,"ID::Max":18446744073709551615},"OrderID":{"ID::Bits":48,"ID::Min":0,"ID::Max":18446744073709551615},"PluginID":{"ID::Bits":0,"ID::Min":0,"ID::Max":18446744073709551615},"ProductID":{"ID::Bits":0,"ID::Min":0,"ID::Max":4294967295},"ProductOriginID":{"ID::Bits":32,"ID::Min":4294967295,"ID::Max":1099511627775},"ServiceID":{"ID::Bits":44,"ID::Min":17592186044415,"ID::Max":281474976710655},"ServiceObjID":{"ID::Bits":40,"ID::Min":1099511627775,"ID::Max":281474976710655},"SystemID":{"ID::Bits":48,"ID::Min":281474976710655,"ID::Max":18446744073709551615}}
-]]>
-</IDConfig>
--->
-</Config>
+</Setup>

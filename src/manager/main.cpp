@@ -1,30 +1,22 @@
 ﻿#include "stdafx.h"
-using namespace local;
 
-int WINAPI wWinMain(_In_ HINSTANCE hInstance,
-	_In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPWSTR lpCmdLine,
-	_In_ int nShowCmd) {
+int WINAPI wWinMain(
+ _In_ HINSTANCE hInstance,
+ _In_opt_ HINSTANCE hPrevInstance,
+ _In_ LPWSTR lpCmdLine,
+ _In_ int nShowCmd) {
+
+ UNREFERENCED_PARAMETER(hPrevInstance);
+ UNREFERENCED_PARAMETER(lpCmdLine);
+
 #if defined(_DEBUG)
-	::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//::_CrtSetBreakAlloc(145);
+ ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+ //::_CrtSetBreakAlloc(255);
 #endif
-	__gspGlobal = new Global();
-	HRESULT discard = ::CoInitialize(nullptr);
-	do {
-  CPaintManagerUI::SetInstance(hInstance);
-#if _DEBUG
-  CPaintManagerUI::SetResourcePath(LR"(..\..\..\src\manager\res\skin)");
-#else
-  std::string skin_path = shared::Win::GetModulePathA() + "skin";
-  CPaintManagerUI::SetResourcePath(shared::IConv::MBytesToWString(skin_path).c_str());
-#endif
-  Global::MainUI()->Start();
-  CPaintManagerUI::MessageLoop();
-		Global::MainUI()->Stop();
-	} while (0);
-	::CoUninitialize();
-	SK_DELETE_PTR(__gspGlobal);
-	return 0;
+
+ local::UIApp ui_app;
+ ui_app.RunOnCurrentThreadWithLoop(nbase::MessageLoop::kUIMessageLoop);
+
+ return 0;
 }
 

@@ -24,12 +24,12 @@ namespace local {
   m_Ready.store(false);
   do {
    m_pConfig = new Config();
-   m_pManagerUI = new Manager();
+   //m_pManagerUI = new Manager();
    m_Ready.store(true);
   } while (0);
  }
  void Global::UnInit() {
-  SK_DELETE_PTR(m_pManagerUI);
+  //SK_DELETE_PTR(m_pManagerUI);
   SK_DELETE_PTR(m_pConfig);
   m_Ready.store(false);
  }
@@ -39,9 +39,11 @@ namespace local {
    return __gspGlobal->m_pConfig;
   return nullptr;
  }
+#if 0
  Manager* Global::MainUI() {
   if (__gspGlobal)
    return __gspGlobal->m_pManagerUI;
   return nullptr;
  }
+#endif
 }///namespace local

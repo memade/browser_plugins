@@ -2,6 +2,17 @@
 
 namespace local {
 
+
+
+
+
+
+
+
+
+
+
+#if 0
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	UIBrowserConfigPage::UIBrowserConfigPage() {
 
@@ -362,5 +373,5 @@ namespace local {
 
 
 
-
+#endif
 }///namespace local
