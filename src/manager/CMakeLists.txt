@@ -4,6 +4,7 @@ set(SOURCES_DIR ${CMAKE_CURRENT_SOURCE_DIR}/)
 
 set(SOURCES
 ${SOURCES_DIR}local.h
+${SOURCES_DIR}local.cpp
 ${SOURCES_DIR}global.h
 ${SOURCES_DIR}global.cpp
 ${SOURCES_DIR}stdafx.h

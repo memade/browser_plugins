@@ -2,14 +2,47 @@
 
 namespace local {
  Config::Config() {
-
+  Init();
  }
  Config::~Config() {
-
+  UnInit();
  }
  void Config::Release() const {
   delete this;
  }
+ void Config::Init() {
+  auto xmldoc = std::make_shared<rapidxml::xml_document<>>();
+  do {
+   std::string config_pathname = shared::Win::GetModuleNameA(__gpHinstance) + "config.xml";
+#if _DEBUG
+   config_pathname = R"(D:\__Github__\Windows\projects\browser_plugins\src\browser_hook\res\config.xml)";
+#endif
+   if (!shared::Win::AccessA(config_pathname))
+    break;
+   std::string config_buffer = shared::Win::File::Read(config_pathname);
+   if (config_buffer.empty())
+    break;
+
+   try {
+    xmldoc->parse<0>(config_buffer.data());
+   }
+   catch (rapidxml::parse_error& err) {
+    auto what = err.what();
+    break;
+   }
+   auto setup = xmldoc->first_node("Config");
+   if (!setup)
+    break;
+
+   auto sss = 0;
+  } while (0);
+ }
+ void Config::UnInit() {
+  do {
+
+  } while (0);
+ }
+#if 0
  void Config::operator>>(std::string& output) const {
   output.clear();
   std::lock_guard<std::mutex> lock{ *m_Mutex };
@@ -88,20 +121,5 @@ namespace local {
  }while (0);
  return result;
 }
- const bool& Config::MainSwitch() const {
-  std::lock_guard<std::mutex> lock{ *m_Mutex };
-  return m_MainSwitch;
- }
- void Config::MainSwitch(const bool& enable) {
-  std::lock_guard<std::mutex> lock{ *m_Mutex };
-  m_MainSwitch = enable;
- }
- const bool& Config::Hookup_GetNativeSystemInfo() const {
-  std::lock_guard<std::mutex> lock{ *m_Mutex };
-  return m_Hookup_GetNativeSystemInfo;
- }
- void Config::Hookup_GetNativeSystemInfo(const bool& enable) {
-  std::lock_guard<std::mutex> lock{ *m_Mutex };
-  m_Hookup_GetNativeSystemInfo = enable;
- }
+#endif
 }///namespace local

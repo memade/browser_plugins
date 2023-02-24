@@ -33,8 +33,8 @@ OutputPathConfig("bin" "bin" "lib")
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/manager/)
 #set_target_properties(win PROPERTIES FOLDER "shared")
 
-add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_hijack/)
-set_target_properties(browser_hijack PROPERTIES FOLDER "components")
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_injector/)
+set_target_properties(browser_injector PROPERTIES FOLDER "components")
 
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_hook/)
 set_target_properties(browser_hook PROPERTIES FOLDER "components")

@@ -3,7 +3,93 @@
 
 namespace local {
 
+ class UIUserBrowserConfigPage;
 
+ class UIUserBrowserConfigListItem : public ui::ListContainerElement {
+ public:
+  UIUserBrowserConfigListItem(const std::uint64_t&);
+  UIUserBrowserConfigListItem(const std::string&);
+  virtual ~UIUserBrowserConfigListItem();
+  void operator>>(std::string&) const;
+  void operator>>(UIUserBrowserConfigPage*) const;
+  bool operator<<(const std::string&);
+ public:
+  const std::uint64_t& Identify() const;
+  void SetTitle(const std::wstring&);
+  std::wstring GetTitle();
+  void UpdateTitle();
+ private:
+  std::uint64_t identify = 0;
+  std::string name;
+  std::string comment;
+  std::string proxy_address;
+  std::string proxy_account;
+  std::string proxy_password;
+  std::string user_agent;
+  bool proxy_enable = false;
+ private:
+  std::string RawData;
+  std::wstring Title;
+ };
+
+ class UIUserBrowserConfigPage : public ui::Box {
+ public:
+  UIUserBrowserConfigPage();
+  virtual ~UIUserBrowserConfigPage();
+ private:
+  void Default();
+ public:
+  void SetTitle(const std::wstring&);
+  std::wstring GetTitle();
+  void SetIdentify(const std::uint64_t&);
+  std::uint64_t GetIdentify();
+  void SetName(const std::wstring&);
+  std::wstring GetName();
+  void SetComment(const std::wstring&);
+  std::wstring GetComment();
+  void SetUserAgent(const std::wstring&);
+  void SetUserAgentDefault();
+  std::wstring GetUserAgent();
+  void SetProxyEnable(const bool&);
+  bool GetProxyEnable();
+  void ProxyCtrlEnable(const bool&);
+  void SetProxyAddress(const std::wstring&);
+  std::wstring GetProxyAddress();
+  void SetProxyAccount(const std::wstring&);
+  std::wstring GetProxyAccount();
+  void SetProxyPassword(const std::wstring&);
+  std::wstring GetProxyPassword();
+  void SetScreenResolution(const size_t&);
+  size_t GetScreenResolution();
+  void SetAvailableScreenSize(const size_t&);
+  size_t GetAvailableScreenSize();
+  void SetHardwareConcurency(const size_t&);
+  size_t GetHardwareConcurency();
+  void SetPlatform(const std::wstring&);
+  std::wstring GetPlatform();
+  void SetWebGLUnmaskedVendor(const std::wstring&);
+  std::wstring GetWebGLUnmaskedVendor();
+  void SetWebGLUnmaskedRenderer(const std::wstring&);
+  std::wstring GetWebGLUnmaskedRenderer();
+  void SetWebGLVersion(const std::wstring&);
+  std::wstring GetWebGLVersion();
+  void SetJumpUrl(const std::wstring&);
+  std::wstring GetJumpUrl();
+
+  bool operator<<(const std::string&);
+  bool operator<<(UIUserBrowserConfigListItem*);
+  void GenerateDefaultConfig(std::string&, const std::uint64_t& identify = 0);
+  std::string OutputConfig(const std::uint64_t&);
+ };
+
+ class UIUserBrowserConfigListbox : public ui::ListBox {
+ public:
+  UIUserBrowserConfigListbox();
+  virtual ~UIUserBrowserConfigListbox();
+ public:
+  bool RemoveUserBrowserConfigItem();
+  bool CreateUserBrowserConfigItem(const std::string&);
+ };
 
 
 #if 0

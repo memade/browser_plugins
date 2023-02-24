@@ -12,19 +12,23 @@ namespace local {
   EN_PROCESS_TYPE_CRASHPAD = 0x5000,
  };
 
+ typedef struct tagBrowserConfig final {
+ public:
+  std::vector<std::string> UserAgents;
+  std::vector<std::string> Platforms;
+  std::vector<std::uint16_t> HardwareConcurencys;
+
+ }BrowserConfig;
  class Config final {
   std::shared_ptr<std::mutex> m_Mutex = std::make_shared<std::mutex>();
  public:
   Config();
   ~Config();
  public:
+  void Init();
+  void UnInit();
+ public:
   void Release() const;
-  const bool& MainSwitch() const;
-  void MainSwitch(const bool&);
-  const bool& Hookup_GetNativeSystemInfo() const;
-  void Hookup_GetNativeSystemInfo(const bool&);
-  void operator>>(std::string&) const;
-  bool operator<<(const std::string&);
  private:
   bool m_MainSwitch = false;
   bool m_Hookup_GetNativeSystemInfo = false;

@@ -12,6 +12,7 @@ namespace local {
  public:
   static bool Ready();
   static Config* ConfigGet();
+  static Setup* SetupGet();
   //static Manager* MainUI();
  private:
   void Init();
@@ -19,10 +20,12 @@ namespace local {
  private:
   std::atomic_bool m_Ready = false;
   Config* m_pConfig = nullptr;
+  Setup* m_pSetup = nullptr;
   //Manager* m_pManagerUI = nullptr;
  };
 
- extern Global* __gspGlobal;
+ extern Global* __gpGlobal;
+ extern HINSTANCE __gpHinstance;
  extern Global* GlobalGet();
 }///namespace local
 

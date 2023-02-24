@@ -10,16 +10,12 @@ namespace local {
   ChromiumPlugin();
   virtual ~ChromiumPlugin();
  public:
-  Config* ConfigGet() const;
   bool Start();
   void Stop();
-  const EnBrowserProcessType& BrowserProcessType() const;
  private:
   void Init();
   void UnInit();
  protected:
-  EnBrowserProcessType m_ProcessType = EnBrowserProcessType::EN_PROCESS_TYPE_UNKNOWN;
-  Config* m_pConfig = nullptr;
   std::atomic_bool m_IsOpen = false;
   std::shared_ptr<std::mutex> m_Mutex = std::make_shared<std::mutex>();
  private:

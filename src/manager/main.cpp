@@ -13,10 +13,15 @@ int WINAPI wWinMain(
  ::_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
  //::_CrtSetBreakAlloc(255);
 #endif
+ local::__gpHinstance = hInstance;
+ local::__gpGlobal = new local::Global();
+
+ local::__gpGlobal->ConfigGet()->Init();
 
  local::UIApp ui_app;
  ui_app.RunOnCurrentThreadWithLoop(nbase::MessageLoop::kUIMessageLoop);
 
+ SK_DELETE_PTR(local::__gpGlobal);
  return 0;
 }
 

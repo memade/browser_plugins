@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Config>
+
+
+
+<!--Browser environment parameters-->
+<BrowserEnvironment>
+	<UserAgents>
+	<![CDATA[
+	[
+	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.50",
+	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"
+	]
+	]]>
+	</UserAgents>
+
+	<Platforms>
+	<![CDATA[
+	[
+	"win32",
+	"linux",
+	"cygwin",
+	"darwin"
+	]
+	]]>
+	</Platforms>
+
+	<DoNotTrack>
+	<![CDATA[
+
+	]]>
+	</DoNotTrack>
+
+	<HardwareConcurencys>
+	<![CDATA[
+	[1,2,4,6,8,12,16,20,24,32,64]
+	]]>
+	</HardwareConcurencys>
+
+	<WebGLUnmaskedVendors>
+	<![CDATA[
+	[
+	"Google Inc. (Google)",
+	""
+	]
+	]]>
+	</WebGLUnmaskedVendors>
+	
+	<WebGLUnmaskedRenderers>
+		<![CDATA[
+	[
+	"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+	"ANGLE (Google, Vulkan 1.3.1 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+	]
+	]]>
+	</WebGLUnmaskedRenderers>
+	
+	<WebGLVersions>
+		<![CDATA[
+	[
+	"WebGL 1.0 (OpenGL ES 2.0 Chromium)",
+	"WebGL 2.0 (OpenGL ES 2.0 Chromium)",
+	"WebGL 3.0 (OpenGL ES 2.0 Chromium)"
+	]
+	]]>
+	</WebGLVersions>
+	<Screen>
+
+	</Screen>
+</BrowserEnvironment>
+
+</Config>

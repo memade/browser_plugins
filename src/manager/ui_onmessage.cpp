@@ -1,9 +1,16 @@
 ﻿#include "stdafx.h"
 
 namespace local {
-
+ bool UIFrame::OnListboxUserBrowserConfigSelected(ui::EventArgs* args) {
+  auto current_selete_index = decltype(m_pListboxUserBrowserConfig)(args->pSender)->GetCurSel();
+  auto current_select_item = (UIUserBrowserConfigListItem*)decltype(m_pListboxUserBrowserConfig)(args->pSender)->GetItemAt(current_selete_index);
+  if (!m_pUserBrowserConfigPage->IsVisible())
+   m_pUserBrowserConfigPage->SetVisible(true);
+  std::string config = Global::ConfigGet()->GetUserBrowserConfig(current_select_item->Identify());
+  return *m_pUserBrowserConfigPage << config;
+ }
  bool UIFrame::OnTreeViewSelected(ui::EventArgs* args) {
-  m_pTabMain->SelectItem(dynamic_cast<decltype(m_pTreeMain)>(args->pSender)->GetCurSel());
+  m_pTabboxMain->SelectItem(decltype(m_pTreeviewMain)(args->pSender)->GetCurSel());
   return true;
  }
 
@@ -22,17 +29,203 @@ namespace local {
  }
 
  bool UIFrame::OnBtnBrowserConfigCreate(ui::EventArgs* args) {
-
-  return true;
+  std::string default_config;
+  m_pUserBrowserConfigPage->GenerateDefaultConfig(default_config);
+  m_pListboxUserBrowserConfig->CreateUserBrowserConfigItem(default_config);
+  return m_pListboxUserBrowserConfig->SelectItem(0);
  }
  bool UIFrame::OnBtnBrowserConfigRemove(ui::EventArgs* args) {
+  bool result = false;
+  do {
+   result = m_pListboxUserBrowserConfig->RemoveUserBrowserConfigItem();
+   if (!result)
+    break;
+   if (Global::ConfigGet()->UserBrowserConfigEmpty())
+    m_pUserBrowserConfigPage->SetVisible(false);
+  } while (0);
+  return result;
+ }
+ bool UIFrame::OnBtnBrowserConfigSave(ui::EventArgs* args) {
+  bool result = false;
+  do {
+   if (!m_pUserBrowserConfigPage)
+    break;
+   auto item_cursel = m_pListboxUserBrowserConfig->GetCurSel();
+   if (item_cursel < 0)
+    break;
+   auto pCurSelConfig = (UIUserBrowserConfigListItem*)m_pListboxUserBrowserConfig->GetItemAt(item_cursel);
+   std::string save_data = m_pUserBrowserConfigPage->OutputConfig(pCurSelConfig->Identify());
+   if (save_data.empty())
+    break;
+   auto cursel = m_pListboxUserBrowserConfig->GetCurSel();
+   if (cursel >= 0) {
+    auto item = (UIUserBrowserConfigListItem*)m_pListboxUserBrowserConfig->GetItemAt(cursel);
+    *item << save_data;
+    *item >> m_pUserBrowserConfigPage;
+    item->SetTitle(m_pUserBrowserConfigPage->GetName());
+   }
+   Global::ConfigGet()->PushUserBrowserConfig(save_data);
+   result = true;
+  } while (0);
 
-  return true;
+  nim_comp::ShowMsgBox(m_hWnd,
+   [&](nim_comp::MsgBoxRet ret) {
+    if (nim_comp::MsgBoxRet::MB_YES == ret) {
+
+    }
+   },
+   std::format(L"保存修改{}!", result ? L"成功" : L"失败"), false,
+    L"提示",
+    false,
+    L"确定", false,
+    L"", false);
+
+  return result;
  }
 
+ bool UIFrame::OnBtnBrowserConfigStart(ui::EventArgs* args) {
+  bool result = false;
+  do {
+   std::string browser_startup_cmdline;
+   std::string browser_pathname = shared::Win::GetModulePathA() + R"(\Browser\chrome.exe)";
+#if _DEBUG
+   browser_pathname = R"(D:\Demo\Browser\chrome.exe)";
+#endif
+
+   std::uint64_t identify = 0;
+   do {
+    auto cursel_item_idx = m_pListboxUserBrowserConfig->GetCurSel();
+    if (cursel_item_idx < 0)
+     break;
+    auto cursel_item = (UIUserBrowserConfigListItem*)m_pListboxUserBrowserConfig->GetItemAt(cursel_item_idx);
+
+    identify = cursel_item->Identify();
+   } while (0);
+   if (identify <= 0)
+    break;
+
+   std::string current_config_path = shared::Win::PathFixedA(\
+    shared::Win::GetModulePathA() + R"(\Configs\)" + std::to_string(identify) + R"(\)");
+   //!@ 创建插件运行时目录配置
+   shared::Win::CreateDirectoryA(current_config_path);
+   
+   do {//!@ 跳转URL
+    if (!m_pUserBrowserConfigPage)
+     break;
+    std::string url = shared::IConv::WStringToMBytes(m_pUserBrowserConfigPage->GetJumpUrl());
+    if (url.empty())
+     break;
+    browser_startup_cmdline.append(" ").append(url);
+   } while (0);
+  
+   do {//!@ 如果启用的扩展 
+    if (!m_pUserBrowserConfigPage->GetProxyEnable())
+     break;
+    std::string extension_dir = shared::Win::PathFixedA(current_config_path + "\\Extensions\\AutoProxy\\");
+    std::string extension_release_dir = shared::Win::PathFixedA(current_config_path + "\\Extensions\\");
+    std::string proxy_account, proxy_address, proxy_password;
+    proxy_address = shared::IConv::WStringToMBytes(m_pUserBrowserConfigPage->GetProxyAddress());
+    proxy_account = shared::IConv::WStringToMBytes(m_pUserBrowserConfigPage->GetProxyAccount());
+    proxy_password = shared::IConv::WStringToMBytes(m_pUserBrowserConfigPage->GetProxyPassword());
+    if (proxy_address.empty() || proxy_account.empty() || proxy_password.empty())
+     break;
+    std::string proxy_extension_res = shared::Win::Resource::Load(__gpHinstance, IDR_CHROMIUM_EXTENSIONS_AUTOPROXY, "ZIP");
+    shared::Zip::zipBufferUnCompress(proxy_extension_res,
+     [&](const std::string&, const std::string&, bool&) ->bool {
+      return true;
+     }, extension_release_dir);
+
+    //!@ 处理代理扩展帐户
+
+    do {//!@ AutoProxy
+     std::string change_target_file = extension_dir + "bg.js";
+     if (!shared::Win::AccessA(change_target_file))
+      break;
+     std::string change_target_file_buffer = shared::Win::File::Read(change_target_file);
+     if (change_target_file_buffer.empty())
+      break;
+     do {
+      auto begin = change_target_file_buffer.find(R"(var login=")");
+      if (begin == std::string::npos)
+       break;
+      auto end = change_target_file_buffer.find(";", begin);
+      std::string code_line = change_target_file_buffer.substr(begin, end - begin);
+      std::string login = std::format(R"(var login="{}")", proxy_account);
+      change_target_file_buffer.replace(begin, code_line.size(), login);
+     } while (0);
+
+     do {
+      auto begin = change_target_file_buffer.find(R"(var password=")");
+      if (begin == std::string::npos)
+       break;
+      auto end = change_target_file_buffer.find(";", begin);
+      std::string code_line = change_target_file_buffer.substr(begin, end - begin);
+      std::string password = std::format(R"(var password="{}")", proxy_password);
+      change_target_file_buffer.replace(begin, code_line.size(), password);
+     } while (0);
+     shared::Win::File::Write(change_target_file, change_target_file_buffer);
+    } while (0);
+    
+
+    browser_startup_cmdline.append(" --load-extension=")
+     .append(extension_dir);
+
+    browser_startup_cmdline.append(std::format(R"( --proxy-server="{}")", proxy_address));
+   } while (0);
 
 
 
+    browser_startup_cmdline.append(shared::Win::PathFixedA(std::format(R"( --user-data-dir={} --profile-directory=Default)",
+     current_config_path + "\\browser_caches\\"
+    )));
+
+
+   auto ua = m_pUserBrowserConfigPage->GetUserAgent();
+   if (!ua.empty()) {
+    browser_startup_cmdline.append(std::format(R"( --user-agent="{}")", shared::IConv::WStringToMBytes(ua)));
+   }
+
+
+   do {//!@ 创建插件配置
+    std::string config = Global::ConfigGet()->GetUserBrowserConfig(identify);
+    if (config.empty())
+     break;
+    std::string plugin_config_pathname = shared::Win::PathFixedA(current_config_path + "\\config.json");
+    shared::Win::File::Write(plugin_config_pathname, config);
+    browser_startup_cmdline.append(std::format(R"( --load-plugin={})",plugin_config_pathname));
+   } while (0);
+
+
+   shared::Win::Process::CreateA(
+    browser_pathname,
+    browser_startup_cmdline, 
+    [](const HANDLE&, const DWORD&) {}
+   );
+
+   result = true;
+  } while (0);
+  return result;
+ }
+ bool UIFrame::OnCheckProxyUnSelected(ui::EventArgs* args) {
+  bool result = false;
+  do {
+   if (!m_pUserBrowserConfigPage)
+    break;
+   m_pUserBrowserConfigPage->ProxyCtrlEnable(false);
+   result = true;
+  } while (0);
+  return result;
+ }
+ bool UIFrame::OnCheckProxySelected(ui::EventArgs* args) {
+  bool result = false;
+  do {
+   if (!m_pUserBrowserConfigPage)
+    break;
+   m_pUserBrowserConfigPage->ProxyCtrlEnable(true);
+   result = true;
+  } while (0);
+  return result;
+ }
 
 
 
@@ -179,7 +372,7 @@ namespace local {
   std::string config_json_data;
   *page >> config_json_data;
   auto sss = 0;
- }
+  }
  void Manager::OnBtnRemoveBrowserConfig(CControlUI* pSender) {
 
  }
@@ -187,4 +380,4 @@ namespace local {
 
  }
 #endif
-}///namespace local
+ }///namespace local

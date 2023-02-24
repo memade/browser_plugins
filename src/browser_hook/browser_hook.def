@@ -18,3 +18,16 @@ hook_SysInfoAmountOfPhysicalMemory @14
 hook_SysInfoAmountOfAvailablePhysicalMemory @15
 hook_SysInfoProcessCPUArchitecture @16
 hook_SysInfoUptime @17
+hook_UrlLoaderUploadElementReaderBytes @18
+
+hook_ChromeContentBrowserClient_GetUserAgent @19
+hook_getParameter_UnmaskedRendererWebgl @20
+hook_getParameter_UnmaskedVendorWebgl @21
+hook_getParameter_GL_VENDOR @22
+hook_hardwareConcurrency @23
+hook_NavigatorPlatform @24
+hook_NavigatorGetAcceptLanguages @25
+hook_Screen_availWidth @26
+hook_Screen_availHeight @27
+hook_Screen_width @28
+hook_Screen_height @29

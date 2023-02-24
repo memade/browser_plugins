@@ -9,77 +9,80 @@
 			<Button class="btn_wnd_max" name="maxbtn" margin="5,3,0,0"/>
 			<Button class="btn_wnd_close" name="btn_system_close" margin="5,3,7,0"/>
 		</HBox>
-				
-			<HBox>
-				<TreeView class="list" name="tree_main" width="100" padding="5,10,0,0">
-						<TreeNode class="listitem" height="30" text="开发配置" align="center">
-							<!--
-							<TreeNode class="listitem" height="30" text="child1" margin="10">
-							</TreeNode>
-							<TreeNode class="listitem" height="30" text="child2" margin="10">
-							</TreeNode>
-							<TreeNode class="listitem" height="30" text="child3" margin="10">
-							</TreeNode>
-							<TreeNode class="listitem" height="30" text="child4" margin="10">
-							</TreeNode>
-							-->
-						</TreeNode>
-						<TreeNode class="listitem" height="30" text="预备选项" align="center">
-						</TreeNode>
-						<TreeNode class="listitem" height="30" text="预备选项" align="center">
-						</TreeNode>
-						<TreeNode class="listitem" height="30" text="预备选项" align="center">
-						</TreeNode>
-				</TreeView>
-				
-				
-				<TabBox width="stretch" height="stretch" name="tab_main" selectedid="0" >
-					<HBox bkcolor="bk_wnd_darkcolor">
-						<VBox width="120">					
-							<VListBox class="list" name="list" bordercolor="border_color" bordersize="1">
-								<ListContainerElement class="listitem" height="24" text="新建配置1" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置2" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置3" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置4" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置5" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置6" align="center" padding="2,2,2,2"/>
-								<ListContainerElement class="listitem" height="24" text="新建配置7" align="center" padding="2,2,2,2"/>						
-								
-							</VListBox>		
-	
-	
-							<HBox height="20">
-								<Control />
-								<Button class="btn_global_red_80x30" name="btn_browser_config_create" text="创建" width="49" valign="center" halign="center" align="center" font="system_bold_12"/>
-								<Control width="2"/>
-								<Button class="btn_global_red_80x30" name="btn_browser_config_remove" text="删除" width="49" valign="center" halign="center" align="center" font="system_bold_12"/>
-								<Control width="2"/>
-							</HBox>
-							
-							<Control height="2" />
-						</VBox>
-					<!--
-						<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
-							<Label name="tooltip" text="您好！" font="system_bold_22"/>
-						</VBox>
-						-->
-					</HBox>
-
-					<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
-						<Label name="tooltip" text="Hello！" font="system_bold_22"/>
-					</VBox>
-
-					<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
-						<Label name="tooltip" text="嗨！" font="system_bold_22"/>
-					</VBox>
-
-					<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
-						<Label name="tooltip" text="好久不见！" font="system_bold_22"/>
-					</VBox>
-
-				</TabBox>
 		
-			</HBox>
+		<!--用户信息-->
+		<VBox valign="center" halign="center" height="100" bkcolor="bk_wnd_lightcolor" bordersize="1" bordercolor="border_color">
+			<Label name="tooltip" text="----用户信息(状态)----" font="system_18"/>
+		</VBox>
+		
+		<HBox>
+			<TreeView class="list" name="treeview_main" width="100" padding="0,0,0,0">
+					<TreeNode class="listitem" height="30" text="开发配置" align="center">
+						<!--
+						<TreeNode class="listitem" height="30" text="child1" margin="10">
+						</TreeNode>
+						<TreeNode class="listitem" height="30" text="child2" margin="10">
+						</TreeNode>
+						<TreeNode class="listitem" height="30" text="child3" margin="10">
+						</TreeNode>
+						<TreeNode class="listitem" height="30" text="child4" margin="10">
+						</TreeNode>
+						-->
+					</TreeNode>
+					<TreeNode class="listitem" height="30" text="预备选项" align="center">
+					</TreeNode>
+					<TreeNode class="listitem" height="30" text="预备选项" align="center">
+					</TreeNode>
+					<TreeNode class="listitem" height="30" text="预备选项" align="center">
+					</TreeNode>
+			</TreeView>
+			
+			
+			<TabBox width="stretch" height="stretch" name="tabbox_main" selectedid="0" >
+				<HBox bkcolor="bk_wnd_darkcolor">
+					<VBox width="120">					
+						<VListBox class="list" name="listbox_browser_config" bordercolor="border_color" bordersize="1" vscrollbar="true">
+						<!--
+							<ListContainerElement class="listitem" height="24" text="新建配置1" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置2" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置3" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置4" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置5" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置6" align="center" padding="2,2,2,2"/>
+							<ListContainerElement class="listitem" height="24" text="新建配置7" align="center" padding="2,2,2,2"/>						
+							-->
+						</VListBox>		
+
+
+						<HBox height="20">
+							<Control />
+							<Button class="btn_global_red_80x30" name="btn_browser_config_create" text="创建" width="49" valign="center" halign="center" align="center" font="system_bold_12"/>
+							<Control width="2"/>
+							<Button class="btn_global_red_80x30" name="btn_browser_config_remove" text="删除" width="49" valign="center" halign="center" align="center" font="system_bold_12"/>
+							<Control width="2"/>
+						</HBox>
+						<!-- sepwidth="6" sepimm="true" -->
+						<Control height="2" />
+					</VBox>
+
+					<Include source="main\listbox_browser_config_page.xml" />
+				</HBox>
+
+				<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
+					<Label name="tooltip" text="Hello！" font="system_bold_22"/>
+				</VBox>
+
+				<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
+					<Label name="tooltip" text="嗨！" font="system_bold_22"/>
+				</VBox>
+
+				<VBox margin="0,0,0,0" valign="center" halign="center" width="auto" height="auto" bkcolor="bk_wnd_darkcolor">
+					<Label name="tooltip" text="好久不见！" font="system_bold_22"/>
+				</VBox>
+
+			</TabBox>
+	
+		</HBox>
 		
 		
 

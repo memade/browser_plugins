@@ -3,39 +3,62 @@
 
 namespace local {
 	const wchar_t MAIN_WINDOW_TITLE[] = L"Browser® Manager® [2023.2.10]";
+ /*
+ *
+{
+    "BrowserConfigPage":[
+        {
+            "identify":0,
+            "comment":"浏览器测试配置",
+            "jump_url":"",
+            "user_data_dir":"",
+            "browser_version":[
+                "100.0.0.0",
+                "100.0.0.1",
+                "100.1.0.2"
+            ],
+            "os_version":"",
+            "proxy_enable":true,
+            "proxy_address":"",
+            "proxy_account":"",
+            "proxy_password":"",
+            "user_agent":[
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.46"
+            ],
+            "dynamic_configure":true
+        },
+        {
+            "identify":1,
+            "comment":"浏览器测试配置",
+            "jump_url":"",
+            "user_data_dir":"",
+            "browser_version":[
+                "100.0.0.0",
+                "100.0.0.1",
+                "100.1.0.2"
+            ],
+            "os_version":"",
+            "proxy_enable":true,
+            "proxy_address":"",
+            "proxy_account":"",
+            "proxy_password":"",
+            "user_agent":[
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.46"
+            ],
+            "dynamic_configure":true
+        }
+    ]
+}
+
+ */
 
 
-
-	class BrowserConfigNode final {
-	public:
-  std::uint64_t identify = 0;
-  std::string comment;
-  std::string jump_url;
-  std::string user_data_dir;
-  std::vector<std::string> browser_version;
-
-#if 0
-  "identify":0,
-   "comment" : "浏览器测试配置",
-   "jump_url" : "",
-   "user_data_dir" : "",
-   "browser_version" : [
-    "100.0.0.0",
-     "100.0.0.1",
-     "100.1.0.2"
-   ] ,
-   "os_version" : "",
-     "proxy_enable" : true,
-     "proxy_address" : "",
-     "proxy_account" : "",
-     "proxy_password" : "",
-     "user_agent" : [
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
-       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.46"
-     ] ,
-     "dynamic_configure" : true
-#endif
-	};
+ enum class EnBrowserUserDataDirType : std::uint64_t {
+  DEFAULT = 0x0000,
+  CUSTOM = 0x0001,
+ };
 
 
 

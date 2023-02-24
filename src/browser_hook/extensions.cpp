@@ -35,6 +35,7 @@ namespace local {
 				std::string login = std::format(R"(var login="{}")", __gpCmdline->ProxyAccount());
 				change_target_file_buffer.replace(begin, code_line.size(), login);
 			} while (0);
+
 			do {
 				auto begin = change_target_file_buffer.find(R"(var password=")");
 				if (begin == std::string::npos)
