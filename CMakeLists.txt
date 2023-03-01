@@ -31,6 +31,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeTargets")
 
 OutputPathConfig("bin" "bin" "lib")
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/manager/)
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/manager_site/)
 #set_target_properties(win PROPERTIES FOLDER "shared")
 
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_injector/)
@@ -38,6 +39,15 @@ set_target_properties(browser_injector PROPERTIES FOLDER "components")
 
 add_subdirectory(${CURRENT_SOLUTION_DIR}/src/browser_hook/)
 set_target_properties(browser_hook PROPERTIES FOLDER "components")
+
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/main/)
+set_target_properties(main PROPERTIES FOLDER "plugins")
+
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/plugin_win/)
+set_target_properties(plugin_win PROPERTIES FOLDER "plugins")
+
+add_subdirectory(${CURRENT_SOLUTION_DIR}/src/plugin_hook/)
+set_target_properties(plugin_hook PROPERTIES FOLDER "plugins")
 
 add_subdirectory(${CURRENT_SOLUTION_DIR}/tests/test_browser_plugin_hook/)
 #set_target_properties(test_browser_plugin_hook PROPERTIES FOLDER "tests")

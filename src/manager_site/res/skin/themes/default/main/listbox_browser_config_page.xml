@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<VBox name="box_user_browser_config_page" bkcolor="bk_wnd_darkcolor" visible="false">
+		<Label name="identify" visible="false" />
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="配置名字" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="name" text="新建配置" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>
+
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="配置说明(注释)" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="comment" text="配置说明信息" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>
+		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="跳转地址" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="jumpurl" text="https://cn.bing.com/" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>
+		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="启用代理" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>
+			<CheckBox class="checkbox_font14" name="proxy_enable" margin="0,0,0,0" selected="true"/>
+		</HBox>		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="代理地址" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="proxy_address" text="http://proxy.ipidea.io:2333/" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="代理帐户" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="proxy_account" text="liyz888-zone-custom-region-us-session-86977717-sessTime-60" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="代理密码" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>			
+			<RichEdit padding="5,1,0,0" name="proxy_password" text="c646674de314d7f2" password="true" font="system_12" bordercolor="border_color" bordersize="1" align="left"/>
+		</HBox>
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="UserAgent" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="user_agent" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0"
+				text="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.49"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0"
+				text="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"/>				
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0"
+				text="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36"/>	
+			</Combo>
+		</HBox>
+			
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="ScreenResolution" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="screen_resolution" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-10px" userdata="10"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-20px" userdata="20"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-30px" userdata="30"/>
+			</Combo>
+		</HBox>
+
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="AvailableScreenSize" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="available_screen_size" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-10px" userdata="10"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-20px" userdata="20"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="-30px" userdata="30"/>
+			</Combo>
+		</HBox>
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="HardwareConcurency" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="hardware_concurency" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="64" userdata="64"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="32" userdata="32"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="20" userdata="20"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="8" userdata="8"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="4" userdata="4"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="2" userdata="2"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="1" userdata="1"/>
+			</Combo>
+		</HBox>
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="Platform" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="platform" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="WinCE"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Win16"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Win32"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Linux i686"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Linux armv7l"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Mac68K"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="MacPPC"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="MacIntel"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="SunOS"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Opera"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="BlackBerry"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="iPhone"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="iPod"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Android"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="HP-UX"/>
+			</Combo>
+		</HBox>
+		
+		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="WebGLUnmaskedVendor" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="webgl_unmasked_vendor" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="ANGLE (NVIDIA, NVIDIA Quadro 2000M Direct3D11 vs_5_0 ps_5_0)"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="ANGLE (AMD, AMD Radeon R9 200 Series Direct3D11 vs_5_0 ps_5_0)"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"/>
+			</Combo>
+		</HBox>
+		
+		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="WebGLUnmaskedRenderer" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="webgl_unmasked_renderer" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Google Inc. (NVIDIA)"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="Google Inc. (Google)"/>
+			</Combo>
+		</HBox>
+		
+		
+		<HBox height="20" bordercolor="border_color" bordersize="1">
+			<Label width="130" text="WebGLVersion" font="system_bold_12" margin="5,0,0,0" align="left" valign="center" halign="center"/>	
+			<Combo class="combo" name="webgl_version" margin="5,0,5,0" textpadding="5,0,0,0">	<!--Stochastic Collocation Method-->
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="未配置" selected="true"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="WebGL 1.0 (OpenGL ES 2.0 Chromium)"/>
+				<ListContainerElement class="listitem" height="24" align="left" margin="5,0,5,0" text="WebGL 2.0 (OpenGL ES 2.0 Chromium)"/>
+			</Combo>
+		</HBox>
+		
+		<Control />
+		<HBox height="100">
+			<Control />
+			<Button class="btn_global_red_80x30" name="btn_browser_config_save" height="50" text="保存修改" width="100" valign="center" halign="center" align="center" font="system_bold_12"/>
+			<Control width="3"/>
+			<Button class="btn_global_red_80x30" name="btn_browser_config_start" height="50" text="启动浏览器" width="100" valign="center" halign="center" align="center" font="system_bold_14"/>
+			<Control width="10"/>
+		</HBox>
+	</VBox>
+</Window>

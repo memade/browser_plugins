@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window>
+	<ListContainerElement class="listitem" name="listitem_user_browser_config_title" height="30" text="新建配置" align="center" padding="2,2,2,2">	
+	
+	
+	
+	</ListContainerElement>
+</Window>

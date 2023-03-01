@@ -12,19 +12,8 @@
 \*===----------------------------------------------------------------------======*/
 #if !defined(__BCD1AB38_1488_4E00_AE59_F79E2A2545A2__)
 #define __BCD1AB38_1488_4E00_AE59_F79E2A2545A2__
-#if 0
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#include <Windows.h>
-#endif
 
-#include <Windows.h>
-
-#define ENABLE_MEMADE_CHROMIUM_PLUGIN 1
-
-#if ENABLE_MEMADE_CHROMIUM_PLUGIN
-namespace chromium_plugin {
+namespace browser_plugin {
  using TypeIdentify = unsigned long long;
  using t_interface_init = void* (__stdcall*)(const void*, unsigned long);
  using t_interface_uninit = void(__stdcall*)(void);
@@ -83,48 +72,23 @@ namespace chromium_plugin {
  };
 
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- enum class EnBrowserProcessType : unsigned long long {
-  EN_PROCESS_TYPE_UNKNOWN = 0x0000,
-  EN_PROCESS_TYPE_MAIN = 0x1000,
-  EN_PROCESS_TYPE_GPU = 0x2000,
-  EN_PROCESS_TYPE_RENDERER = 0x3000,
-  EN_PROCESS_TYPE_UTILITY = 0x4000,
-  EN_PROCESS_TYPE_CRASHPAD = 0x5000,
- };
-
-
  class IConfig {
  public:
   virtual void Release() const = 0;
  };
 
- class IChromiumPlugin : public InterfaceDll<IChromiumPlugin> {
+ class IBrowserPlugin : public InterfaceDll<IBrowserPlugin> {
  public:
   virtual void Release() const = 0;
   virtual IConfig* ConfigGet() const = 0;
-  virtual const EnBrowserProcessType& BrowserProcessType() const = 0;
   virtual bool Start() = 0;
   virtual void Stop() = 0;
- public:
-  virtual void On_version_info_GetProductNameAndVersionForUserAgent(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetProductNameAndVersionForReducedUserAgent(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetProductName(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetVersionNumber(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetMajorVersionNumberAsInt(_Inout_ int&) = 0;
-  virtual void On_version_info_GetMajorVersionNumber(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetLastChange(_Inout_ std::string&) = 0;
-  virtual void On_version_info_IsOfficialBuild(_Inout_ bool&) = 0;
-  virtual void On_version_info_GetOSType(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetChannelString(_Inout_ std::string&) = 0;
-  virtual void On_version_info_GetSanitizerList(_Inout_ std::string&) = 0;
 
-  virtual void On_version_base_win_GetVersionData(DWORD&, std::wstring&) = 0;
+ public://!@ win
+  virtual void EnumPluginPath(const char* folder_path, const std::function<void(const char*)>&) = 0;
  };
 
-}///namespace chromium_plugin
-
-extern chromium_plugin::IChromiumPlugin* __gpMemadeChromiumPlugin;
-#endif
+}///namespace browser_plugin
 
 
 

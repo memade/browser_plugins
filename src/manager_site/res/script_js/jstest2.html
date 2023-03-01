@@ -1,0 +1,39 @@
+	<html> 
+	<meta charset="UTF-8" />
+	<script>
+	const showMessage = () => {
+		const message = document.getElementById('message_input').value
+		// 调用一个 C++ 注册过的方法
+		NimCefWebInstance.call('ShowMessageBox', { message }, (error, result) => {
+			console.log(result)
+		})
+	}
+	</script>
+
+	
+	<script type="text/javascript">
+    function myfun() 　　{ 　　 
+        //alert("this window.onload"); 
+								
+														 const message = 'page init success.'
+		// 调用一个 C++ 注册过的方法
+		NimCefWebInstance.call('InitNotify', { message }, (error, result) => {
+			console.log(result)
+		})　　
+    } 　　
+
+    /*用window.onload调用myfun()*/　
+    　
+    // 不要括号
+    window.onload = myfun;
+</script>
+	
+	<body onload="initNotify();">
+	    <div class="input-group">
+      <input type="text" id="message_input" class="form-control" placeholder="输入内容发送给 C++ 接收">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="showMessage()">JavaScript测试消息回调</button>
+      </span>
+    </div>		
+	</body> 
+	</html>

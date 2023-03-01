@@ -1,0 +1,4 @@
+LIBRARY
+EXPORTS
+api_object_init @1
+api_object_uninit @2

@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<script>
+		
+			/*
+			* @NimCefWebInstance.register(...)
+			* C调用JS需要注册本方法 获取数据
+			* @c2jGetData [c call js]
+			* @
+			*/
+			(()=>{
+				NimCefWebInstance.register('c2jGetData',
+				(param)=>
+				{
+						alert(param["message"]);
+						let data = {//!@ 将JSON业务数据回传到C方向
+							id:"memade",
+							account:112233,
+							pwd:"#@$^@&$%#&#12sdh*"
+						}
+						var content = JSON.stringify(data);						
+						return {content}
+				})
+			})()
+
+			/*
+			* @NimCefWebInstance.call(...)
+			* JS调用C需要注册本方法 传递数据
+			* @j2cOpenProcess [js call c] (例如打开本地的进程)
+			*/
+			const j2cOpenProcess = () =>{
+					NimCefWebInstance.call('j2cOpenProcess', 'hello123!', (unknown, result) => {
+						//alert(result["process_id"]);
+						console.log(result["process_id"])
+					})
+			}
+		</script>
+	</head>
+
+	<!--
+	//!@ 在页面初始化后调用
+	<body onload="j2cOpenProcess();">
+	-->
+	<body>
+		<div>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button" onclick="j2cOpenProcess()">网页打开计算器程序</button>
+			</span>
+		</div>
+	</body> 
+</html>

@@ -47,11 +47,12 @@ ${SOLUTION_ROOT_DIR}/3rdparty/curl-7.85.0/include
 ${SOLUTION_ROOT_DIR}/3rdparty/wxWidgets-3.2.1/include
 ${SOLUTION_ROOT_DIR}/3rdparty/NIM_Duilib_Framework
 ${SOLUTION_ROOT_DIR}/3rdparty/NIM_Duilib_Framework/base
+${SOLUTION_ROOT_DIR}/3rdparty/NIM_Duilib_Framework/third_party/cef_wrapper
 )
 
 # 依赖库目录
 target_link_directories(${PROJECT_NAME} PRIVATE
-${SOLUTION_ROOT_DIR}/3rdparty/NIM_Duilib_Framework/compile
+${SOLUTION_ROOT_DIR}/3rdparty/NIM_Duilib_Framework/libs/${CMAKE_VS_PLATFORM_NAME}
 ${SOLUTION_ROOT_DIR}/librarys/3rdparty/${CMAKE_VS_PLATFORM_NAME}
 ${SOLUTION_ROOT_DIR}/librarys/shared/${CMAKE_VS_PLATFORM_NAME}
 ${SOLUTION_ROOT_DIR}/librarys/openssl/3.1.0-beta1/${CMAKE_VS_PLATFORM_NAME}
