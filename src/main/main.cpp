@@ -15,15 +15,11 @@ namespace local {
  }
 
  void Main::Init() {
-  //__gpSpdlog = shared::ISpdlog::CreateInterface(
-  // shared::Win::GetModuleNameA(true, nullptr),
-  // shared::Win::GetModulePathA(nullptr)
-  //);
 
  }
 
  void Main::UnInit() {
-  //shared::ISpdlog::DestoryInterface();
+
  }
 
 

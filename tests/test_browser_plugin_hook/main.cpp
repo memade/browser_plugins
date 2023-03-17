@@ -2,10 +2,7 @@
 #include <spdlog.hpp>
 #include <chromium_plugin_memade.hpp>
 
-#ifdef WINDOWS
-
-
-#endif
+#include <memade/memade.hpp>
 
 int main(int argc, char** argv) {
 #if defined(_DEBUG)
@@ -23,7 +20,7 @@ int main(int argc, char** argv) {
  tf_chromium_plugin_api_object_uninit api_object_uninit = nullptr;
  do {
   hModule = ::LoadLibraryA(/*R"(D:\__Github__\Windows\projects\browser_plugins\bin\x64\Debug\browser_hook.dll)"*/
-  R"(D:\__Github__\Windows\projects\browser_plugins\bin\x64\Debug\plugin_hook.dll)"
+   R"(D:\__Github__\Windows\projects\browser_plugins\bin\x64\Debug\plugin_hook.dll)"
   );
   if (!hModule)
    break;
@@ -39,7 +36,7 @@ int main(int argc, char** argv) {
  shared::Win::MainProcess(
   [&](const std::string& input, bool& exit) {
 
-   if (input == "q") {    
+   if (input == "q") {
     if (hModule) {
      if (api_object_uninit)
       api_object_uninit();
@@ -57,3 +54,5 @@ int main(int argc, char** argv) {
   });
  return 0;
 }
+
+
